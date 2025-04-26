@@ -72,7 +72,7 @@ export const ModelMetadatas = (props: IModelMetadatasProps) => {
                 <h1 className="h4 fw-normal">Модель</h1>
             </div>
             <div className="card-text">
-                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idModelMetadata', Caption: 'ID', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Имя', Visible: true, Type: 'string'}, {Name:'nameSpace', Caption: 'Пространство имен', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
+                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idModelMetadata', Caption: 'ID', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Имя', Visible: true, Type: 'string'}, {Name:'initData', Caption: 'Начальные данные', Visible: true, Type: 'string'}, {Name:'nameSpace', Caption: 'Пространство имен', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>

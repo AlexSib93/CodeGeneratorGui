@@ -106,6 +106,11 @@ const toUpperFirstChar = str => {
       </div>
 
       <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputInitData">Начальные данные</label>
+        <input name="initData" className="form-control" id="floatingInputInitData" placeholder="Начальные данные" autoComplete="off" value={editedItem.initData} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">                
         <label className="form-label" htmlFor="floatingInputNameSpace">Пространство имен</label>
         <input name="nameSpace" className="form-control" id="floatingInputNameSpace" placeholder="Пространство имен" autoComplete="off" value={editedItem.nameSpace} onChange={ handleInputChange } />
       </div>
@@ -120,7 +125,7 @@ const toUpperFirstChar = str => {
                 <h1 className="h4 fw-normal">Свойства</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
+                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Перечисление', Visible: true, Type: 'bool'}, {Name:'isMasterProp', Caption: 'Ссылка на мастера', Visible: true, Type: 'bool'}, {Name:'isDetailsProp', Caption: 'Детейл', Visible: true, Type: 'bool'}, {Name:'isDictValueProp', Caption: 'Значение из справочника', Visible: true, Type: 'bool'}]} />
             </div>
         </div>
       </div>

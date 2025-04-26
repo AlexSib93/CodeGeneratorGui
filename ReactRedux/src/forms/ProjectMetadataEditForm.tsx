@@ -143,13 +143,23 @@ const toUpperFirstChar = str => {
         <label className="form-label" htmlFor="floatingInputPath">Путь</label>
         <input name="path" className="form-control" id="floatingInputPath" placeholder="Путь" autoComplete="off" value={editedItem.path} onChange={ handleInputChange } />
       </div>
+
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputDbConnectionString">Строка подключения к БД</label>
+        <input name="dbConnectionString" className="form-control" id="floatingInputDbConnectionString" placeholder="Строка подключения к БД" autoComplete="off" value={editedItem.dbConnectionString} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputUnitOfWork">Объект работы с БД (MockUnit или EfUnit )</label>
+        <input name="unitOfWork" className="form-control" id="floatingInputUnitOfWork" placeholder="Объект работы с БД (MockUnit или EfUnit )" autoComplete="off" value={editedItem.unitOfWork} onChange={ handleInputChange } />
+      </div>
       <div className="m-3 card">    
         <div className="card-body"> 
             <div className="card-title">
                 <h1 className="h4 fw-normal">Модели</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addModels} onEdit={setEditedModels} onDelete={handleDeleteModels} items={editedItem.models} props={[{Name:'idModelMetadata', Caption: 'ID', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Имя', Visible: true, Type: 'string'}, {Name:'nameSpace', Caption: 'Пространство имен', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
+                <Grid  onAdd={addModels} onEdit={setEditedModels} onDelete={handleDeleteModels} items={editedItem.models} props={[{Name:'idModelMetadata', Caption: 'ID', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Имя', Visible: true, Type: 'string'}, {Name:'initData', Caption: 'Начальные данные', Visible: true, Type: 'string'}, {Name:'nameSpace', Caption: 'Пространство имен', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>

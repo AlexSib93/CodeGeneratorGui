@@ -72,7 +72,7 @@ export const ProjectMetadatas = (props: IProjectMetadatasProps) => {
                 <h1 className="h4 fw-normal">Проект</h1>
             </div>
             <div className="card-text">
-                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idProjectMetadata', Caption: 'ID проекта', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'path', Caption: 'Путь', Visible: true, Type: 'string'}]} />
+                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idProjectMetadata', Caption: 'ID проекта', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'path', Caption: 'Путь', Visible: true, Type: 'string'}, {Name:'dbConnectionString', Caption: 'Строка подключения к БД', Visible: true, Type: 'string'}, {Name:'unitOfWork', Caption: 'Объект работы с БД (MockUnit или EfUnit )', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>

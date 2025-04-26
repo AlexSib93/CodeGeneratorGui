@@ -1,5 +1,6 @@
 ﻿import { ComponentMetadata, initComponentMetadata } from "./ComponentMetadata";
 import { ProjectMetadata, initProjectMetadata } from "./ProjectMetadata";
+import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
 export interface FormMetadata {
   idFormMetadata:number;
   name:string;
@@ -9,6 +10,10 @@ export interface FormMetadata {
   components:ComponentMetadata[];
   idProjectMetadata:number;
   projectMetadata:ProjectMetadata;
+  idEditForm:number;
+  editForm?:FormMetadata;
+  idModel:number;
+  model:ModelMetadata;
 }
 
 export const initFormMetadata = {
@@ -20,5 +25,8 @@ export const initFormMetadata = {
   components: [],
   idProjectMetadata: 0,
   projectMetadata: initProjectMetadata,
+  idEditForm: 0,
+  idModel: 0,
+  model: initModelMetadata,
 
 }

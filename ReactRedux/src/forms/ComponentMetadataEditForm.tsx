@@ -125,14 +125,14 @@ const toUpperFirstChar = str => {
                 <h1 className="h4 fw-normal">Используется для табличных компонентов для передачи списка свойств и их подписей</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
+                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Перечисление', Visible: true, Type: 'bool'}, {Name:'isMasterProp', Caption: 'Ссылка на мастера', Visible: true, Type: 'bool'}, {Name:'isDetailsProp', Caption: 'Детейл', Visible: true, Type: 'bool'}, {Name:'isDictValueProp', Caption: 'Значение из справочника', Visible: true, Type: 'bool'}]} />
             </div>
         </div>
       </div>
 
-      <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputModelProp">Компонент свойства модели</label>
-        <input name="modelProp" className="form-control" id="floatingInputModelProp" placeholder="Компонент свойства модели" autoComplete="off" value={editedItem.modelProp} onChange={ handleInputChange } />
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckModelProp">Компонент свойства модели</label>
+        <input name="modelProp" className="form-check-input" type="checkbox" checked={editedItem.modelProp} id="flexCheckModelProp" onChange={ handleCheckBoxChange } />
       </div>
          <button className="w-50 btn btn-danger" >Отмена</button>
          <button className="w-50 btn btn-success" type="submit">Сохранить</button>

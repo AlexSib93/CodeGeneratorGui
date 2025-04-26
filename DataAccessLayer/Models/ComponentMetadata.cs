@@ -29,5 +29,10 @@ namespace DataAccessLayer.Dto
         
         public virtual ICollection<PropMetadata>? Props { get; set; }        public bool ModelProp { get; set; }
 
+        public int? IdFormMetadata { get; set; }
+
+        
+        [ForeignKey("IdFormMetadata")]
+        public virtual FormMetadata? FormMetadata { get; set; }
     }
 }

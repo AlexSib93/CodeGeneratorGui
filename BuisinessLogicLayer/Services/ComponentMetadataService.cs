@@ -55,14 +55,14 @@ namespace BuisinessLogicLayer.Services
 
         public ComponentMetadata Get(Expression<Func<ComponentMetadata, bool>> where = null)
         {
-            ComponentMetadata t = Unit.RepComponentMetadata.Get(where, "ModelPropMetadata", "Props");
+            ComponentMetadata t = Unit.RepComponentMetadata.Get(where, "ModelPropMetadata", "Props", "FormMetadata");
 
             return t;
         }
 
         public IEnumerable<ComponentMetadata> GetAll(Expression<Func<ComponentMetadata, bool>> where = null)
         {
-            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll(where,"ModelPropMetadata");
+            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll(where,"ModelPropMetadata", "FormMetadata");
 
             return componentMetadatas;
         }

@@ -28,5 +28,15 @@ namespace DataAccessLayer.Dto
         
         [ForeignKey("IdProjectMetadata")]
         public virtual ProjectMetadata? ProjectMetadata { get; set; }
+        public int? IdEditForm { get; set; }
+
+        
+        [ForeignKey("IdEditForm")]
+        public virtual FormMetadata? EditForm { get; set; }
+        public int? IdModel { get; set; }
+
+        
+        [ForeignKey("IdModel")]
+        public virtual ModelMetadata? Model { get; set; }
     }
 }

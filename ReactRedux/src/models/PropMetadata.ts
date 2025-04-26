@@ -6,6 +6,15 @@ export interface PropMetadata {
   caption:string;
   idModel:number;
   model:ModelMetadata;
+  isPrimaryKey:boolean;
+  isVirtual:boolean;
+  visible:boolean;
+  editable:boolean;
+  jsonIgnore:boolean;
+  isEnumerable:boolean;
+  isMasterProp:boolean;
+  isDetailsProp:boolean;
+  isDictValueProp:boolean;
 }
 
 export const initPropMetadata = {
@@ -15,5 +24,14 @@ export const initPropMetadata = {
   caption: '',
   idModel: 0,
   model: initModelMetadata,
+  isPrimaryKey: false,
+  isVirtual: false,
+  visible: true,
+  editable: true,
+  jsonIgnore: false,
+  isEnumerable: false,
+  isMasterProp: false,
+  isDetailsProp: false,
+  isDictValueProp: false,
 
 }

@@ -86,6 +86,51 @@ const toUpperFirstChar = str => {
         <label className="form-label" htmlFor="floatingInputCaption">Отображаемое имя</label>
         <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" autoComplete="off" value={editedItem.caption} onChange={ handleInputChange } />
       </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsPrimaryKey">Первичный ключ</label>
+        <input name="isPrimaryKey" className="form-check-input" type="checkbox" checked={editedItem.isPrimaryKey} id="flexCheckIsPrimaryKey" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsVirtual">Свойство внешней связи</label>
+        <input name="isVirtual" className="form-check-input" type="checkbox" checked={editedItem.isVirtual} id="flexCheckIsVirtual" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckVisible">Отображать свойство в интерфейсе</label>
+        <input name="visible" className="form-check-input" type="checkbox" checked={editedItem.visible} id="flexCheckVisible" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckEditable">Доступ к редактированию поля</label>
+        <input name="editable" className="form-check-input" type="checkbox" checked={editedItem.editable} id="flexCheckEditable" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckJsonIgnore">Не передавать на клиент</label>
+        <input name="jsonIgnore" className="form-check-input" type="checkbox" checked={editedItem.jsonIgnore} id="flexCheckJsonIgnore" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsEnumerable">Перечисление</label>
+        <input name="isEnumerable" className="form-check-input" type="checkbox" checked={editedItem.isEnumerable} id="flexCheckIsEnumerable" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsMasterProp">Ссылка на мастера</label>
+        <input name="isMasterProp" className="form-check-input" type="checkbox" checked={editedItem.isMasterProp} id="flexCheckIsMasterProp" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsDetailsProp">Детейл</label>
+        <input name="isDetailsProp" className="form-check-input" type="checkbox" checked={editedItem.isDetailsProp} id="flexCheckIsDetailsProp" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsDictValueProp">Значение из справочника</label>
+        <input name="isDictValueProp" className="form-check-input" type="checkbox" checked={editedItem.isDictValueProp} id="flexCheckIsDictValueProp" onChange={ handleCheckBoxChange } />
+      </div>
          <button className="w-50 btn btn-danger" >Отмена</button>
          <button className="w-50 btn btn-success" type="submit">Сохранить</button>
          </form>}

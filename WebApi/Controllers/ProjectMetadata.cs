@@ -26,9 +26,11 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                ProjectMetadata res = _projectMetadataService.Add(projectMetadata);
+                var mngr = new ProjectFileManager("./projects");
 
-                return Ok(res);
+                mngr.SaveProject(projectMetadata.Name, projectMetadata);
+
+                return Ok(projectMetadata);
             }
             catch (Exception ex)
             {

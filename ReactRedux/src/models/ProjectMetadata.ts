@@ -5,6 +5,8 @@ export interface ProjectMetadata {
   name:string;
   description:string;
   path:string;
+  dbConnectionString:string;
+  unitOfWork:string;
   models:ModelMetadata[];
   forms:FormMetadata[];
 }
@@ -14,6 +16,8 @@ export const initProjectMetadata = {
   name: '',
   description: '',
   path: '',
+  dbConnectionString: '',
+  unitOfWork: '',
   models: [],
   forms: [],
 

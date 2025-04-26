@@ -17,10 +17,16 @@ namespace DataAccessLayer.Dto
         [Key]
         public int IdModelMetadata { get; set; }
         public string Name { get; set; }
+        public string InitData { get; set; }
         public string NameSpace { get; set; }
         public string Caption { get; set; }
 
         
         public virtual ICollection<PropMetadata>? Props { get; set; }
+        public int? IdProjectMetadata { get; set; }
+
+        
+        [ForeignKey("IdProjectMetadata")]
+        public virtual ProjectMetadata? ProjectMetadata { get; set; }
     }
 }

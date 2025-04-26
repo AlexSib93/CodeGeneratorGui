@@ -115,9 +115,9 @@ const toUpperFirstChar = str => {
         <input name="description" className="form-control" id="floatingInputDescription" placeholder="Описание" autoComplete="off" value={editedItem.description} onChange={ handleInputChange } />
       </div>
 
-      <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputAddToNavBar">Добавить в панель навигации</label>
-        <input name="addToNavBar" className="form-control" id="floatingInputAddToNavBar" placeholder="Добавить в панель навигации" autoComplete="off" value={editedItem.addToNavBar} onChange={ handleInputChange } />
+      <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckAddToNavBar">Добавить в панель навигации</label>
+        <input name="addToNavBar" className="form-check-input" type="checkbox" checked={editedItem.addToNavBar} id="flexCheckAddToNavBar" onChange={ handleCheckBoxChange } />
       </div>
       <div className="m-3 card">    
         <div className="card-body"> 

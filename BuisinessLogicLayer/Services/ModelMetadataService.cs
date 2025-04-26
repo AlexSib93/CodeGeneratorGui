@@ -90,14 +90,14 @@ Add(JsonConvert.DeserializeObject<IEnumerable<ModelMetadata>>(@"[
 
         public ModelMetadata Get(Expression<Func<ModelMetadata, bool>> where = null)
         {
-            ModelMetadata t = Unit.RepModelMetadata.Get(where, "Props");
+            ModelMetadata t = Unit.RepModelMetadata.Get(where, "Props", "ProjectMetadata");
 
             return t;
         }
 
         public IEnumerable<ModelMetadata> GetAll(Expression<Func<ModelMetadata, bool>> where = null)
         {
-            IEnumerable<ModelMetadata> modelMetadatas = Unit.RepModelMetadata.GetAll(where);
+            IEnumerable<ModelMetadata> modelMetadatas = Unit.RepModelMetadata.GetAll(where,"ProjectMetadata");
 
             return modelMetadatas;
         }
