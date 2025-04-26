@@ -1,0 +1,100 @@
+﻿
+import React, { useState, ChangeEvent, FormEvent, useEffect, useMemo } from 'react';
+import { PropMetadata } from "../models/PropMetadata";
+import PropMetadataService from "../services/PropMetadataService";
+import {Table} from "../components/Table";
+import {Grid} from '../components/Grid';
+
+
+
+
+
+ interface PropMetadataEditFormProps {
+   model: PropMetadata;
+   onSave: (item: PropMetadata) => void;
+   onCancel: () => void;
+ }
+ 
+ const PropMetadataEditForm: React.FC<PropMetadataEditFormProps> = (props: PropMetadataEditFormProps) => {
+   const [editedItem, setEditedItem] = useState<PropMetadata>(props.model);
+
+  
+  useEffect(() => {
+    if(editedItem.idPropMetadata > 0) {
+      console.log('useEffect editedItem',editedItem);      
+      PropMetadataService.get(editedItem.idPropMetadata ).then((item) => {
+        setEditedItem(item);
+      });
+    }
+  }, [editedItem.idPropMetadata])
+
+
+
+
+
+   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+     const { name, value } = e.target;
+
+    let newVal: any = value;
+    if(e.target.type === 'number') {
+        newVal = +value;
+    }
+
+    if(e.target.type === 'date') {
+        newVal = new Date(value);
+    }
+
+     setEditedItem({ ...editedItem, [name]: newVal });
+   };
+
+   const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setEditedItem({ ...editedItem, [name]: checked });
+  };
+
+const toUpperFirstChar = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: null });
+  };
+
+
+   const handleSubmit = (e: FormEvent) => {
+     e.preventDefault();
+     props.onSave(editedItem);
+   };
+ 
+   return (
+    <div>
+         {<form onSubmit={handleSubmit} className="form">
+           <h1 className="h3 mb-3 fw-normal">Свойство</h1>
+               
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputName">Наименование</label>
+        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" autoComplete="off" value={editedItem.name} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputType">Тип данных C#</label>
+        <input name="type" className="form-control" id="floatingInputType" placeholder="Тип данных C#" autoComplete="off" value={editedItem.type} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputCaption">Отображаемое имя</label>
+        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" autoComplete="off" value={editedItem.caption} onChange={ handleInputChange } />
+      </div>
+         <button className="w-50 btn btn-danger" >Отмена</button>
+         <button className="w-50 btn btn-success" type="submit">Сохранить</button>
+         </form>}
+
+    </div>
+   );
+ };
+
+
+
+ export default PropMetadataEditForm;
+  
