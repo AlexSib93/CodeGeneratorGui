@@ -35,7 +35,7 @@ import PropMetadataEditForm from './PropMetadataEditForm';
   const [editedProps, setEditedProps] = useState<PropMetadata>(null);
 
   const addProps = () => {
-    let newItem: PropMetadata = { ...initPropMetadata, idComponentMetadata: editedItem.idComponentMetadata };
+    let newItem: PropMetadata = { ...initPropMetadata };
     setEditedProps(newItem);
   }
 

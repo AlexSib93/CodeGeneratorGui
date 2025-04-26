@@ -45,6 +45,31 @@ namespace CodeGeneratorGUI
         }
 
         /// <summary>
+        /// Сгенерировать метаданные форм проекта
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GenProjectFormMetadata")]
+        public IActionResult GenProjectFormMetadata(string name)
+        {
+            try
+            {
+                var mngr = new ProjectFileManager("./projects");
+                ProjectMetadata project = mngr.LoadProject<ProjectMetadata>(name);
+                project.Forms = MetadataHelper.AutoCreateFormMetadata(project);
+
+                mngr.SaveProject(project.Name, project);
+
+                return Ok(project);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Не удалось сгенерировать проект");
+                return BadRequest(ex.Message + " " + ex.InnerException?.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Сгенерировать код проекта
         /// </summary>
         /// <returns></returns>
