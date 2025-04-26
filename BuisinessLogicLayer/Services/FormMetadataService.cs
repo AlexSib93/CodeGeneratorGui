@@ -55,14 +55,14 @@ namespace BuisinessLogicLayer.Services
 
         public FormMetadata Get(Expression<Func<FormMetadata, bool>> where = null)
         {
-            FormMetadata t = Unit.RepFormMetadata.Get(where, "Components", "Project");
+            FormMetadata t = Unit.RepFormMetadata.Get(where, "Components", "ProjectMetadata");
 
             return t;
         }
 
         public IEnumerable<FormMetadata> GetAll(Expression<Func<FormMetadata, bool>> where = null)
         {
-            IEnumerable<FormMetadata> formMetadatas = Unit.RepFormMetadata.GetAll(where,"Project");
+            IEnumerable<FormMetadata> formMetadatas = Unit.RepFormMetadata.GetAll(where,"ProjectMetadata");
 
             return formMetadatas;
         }

@@ -7,8 +7,8 @@ export interface FormMetadata {
   description:string;
   addToNavBar:boolean;
   components:ComponentMetadata[];
-  idProject:number;
-  project:ProjectMetadata;
+  idProjectMetadata:number;
+  projectMetadata:ProjectMetadata;
 }
 
 export const initFormMetadata = {
@@ -18,7 +18,7 @@ export const initFormMetadata = {
   description: '',
   addToNavBar: false,
   components: [],
-  idProject: 0,
-  project: initProjectMetadata,
+  idProjectMetadata: 0,
+  projectMetadata: initProjectMetadata,
 
 }

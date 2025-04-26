@@ -23,10 +23,10 @@ namespace DataAccessLayer.Dto
 
         
         public virtual ICollection<ComponentMetadata>? Components { get; set; }
-        public int? IdProject { get; set; }
+        public int? IdProjectMetadata { get; set; }
 
         
-        [ForeignKey("IdProject")]
-        public virtual ProjectMetadata? Project { get; set; }
+        [ForeignKey("IdProjectMetadata")]
+        public virtual ProjectMetadata? ProjectMetadata { get; set; }
     }
 }
