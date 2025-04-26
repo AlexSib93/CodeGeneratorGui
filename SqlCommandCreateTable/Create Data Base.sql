@@ -27,7 +27,7 @@ CREATE TABLE FormMetadata
   [Caption] VARCHAR(MAX)   NOT NULL,
   [Description] VARCHAR(MAX)   NOT NULL,
   [AddToNavBar] BIT   NOT NULL,
-  [IdProject] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL
+  [IdProjectMetadata] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL
 )
 
 CREATE TABLE PropMetadata 

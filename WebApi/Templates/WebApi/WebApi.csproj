@@ -10,16 +10,12 @@
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\**" />
-    <Compile Remove="Templates\**" />
     <Content Remove="ClientApp\**" />
     <Content Remove="Models\**" />
-    <Content Remove="Templates\**" />
     <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Templates\**" />
     <None Remove="ClientApp\**" />
     <None Remove="Models\**" />
-    <None Remove="Templates\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,11 +38,5 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\BuisinessLogicLayer\BuisinessLogicLayer.csproj" />
   </ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="CodeGenerator">
-			<HintPath>..\..\CodeGenerator\bin\Debug\net6.0\CodeGenerator.dll</HintPath>
-		</Reference>
-	</ItemGroup>
 
 </Project>

@@ -1,11 +1,9 @@
 ﻿using BuisinessLogicLayer.Services;
-using Mapster;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using DataAccessLayer.Dto;
 using CodeGenerator.Services;
+using DataAccessLayer.Dto;
+using Microsoft.AspNetCore.Mvc;
 namespace CodeGeneratorGUI
-{    
+{
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectMetadataController : ControllerBase
@@ -49,12 +47,11 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                ProjectMetadata res = _projectMetadataService.Update(projectMetadata);
-
                 var mngr = new ProjectFileManager("./projects");
 
                 mngr.SaveProject(projectMetadata.Name, projectMetadata);
-                return Ok(res);
+
+                return Ok(projectMetadata);
             }
             catch (Exception ex)
             {
@@ -92,8 +89,6 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                //IEnumerable<ProjectMetadata> res = _projectMetadataService.GetAll();
-
                 var mngr = new ProjectFileManager("./projects");
                 List<ProjectMetadata> list = mngr.GetProjects<ProjectMetadata>();
 
