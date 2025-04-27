@@ -8,7 +8,7 @@ export interface ModelMetadata {
   caption:string;
   props:PropMetadata[];
   idProjectMetadata:number;
-  projectMetadata:ProjectMetadata;
+  projectMetadata?:ProjectMetadata;
 }
 
 export const initModelMetadata = {
@@ -19,6 +19,5 @@ export const initModelMetadata = {
   caption: '',
   props: [],
   idProjectMetadata: 0,
-  projectMetadata: initProjectMetadata,
 
 }

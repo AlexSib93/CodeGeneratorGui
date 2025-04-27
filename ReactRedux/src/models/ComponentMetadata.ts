@@ -7,11 +7,11 @@ export interface ComponentMetadata {
   description:string;
   type:string;
   idModelPropMetadata:number;
-  modelPropMetadata:PropMetadata;
+  modelPropMetadata?:PropMetadata;
   props:PropMetadata[];
   modelProp:boolean;
   idFormMetadata:number;
-  formMetadata:FormMetadata;
+  formMetadata?:FormMetadata;
 }
 
 export const initComponentMetadata = {
@@ -21,10 +21,8 @@ export const initComponentMetadata = {
   description: '',
   type: '',
   idModelPropMetadata: 0,
-  modelPropMetadata: initPropMetadata,
   props: [],
   modelProp: false,
   idFormMetadata: 0,
-  formMetadata: initFormMetadata,
 
 }

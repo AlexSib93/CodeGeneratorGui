@@ -42,7 +42,7 @@ CREATE TABLE PropMetadata
   [Name] VARCHAR(MAX)   NOT NULL,
   [Type] VARCHAR(MAX)   NOT NULL,
   [Caption] VARCHAR(MAX)   NOT NULL,
-  [IdModel] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
+  [IdModelMetadata] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
   [IsPrimaryKey] BIT   NOT NULL,
   [IsVirtual] BIT   NOT NULL,
   [Visible] BIT   NOT NULL,

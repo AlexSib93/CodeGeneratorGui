@@ -6,8 +6,8 @@ import {Table} from "../components/Table";
 import {Grid} from '../components/Grid';
 import {ComponentMetadata,initComponentMetadata} from '../models/ComponentMetadata';
 import ComponentMetadataEditForm from './ComponentMetadataEditForm';
-
-
+import {ModelMetadata,initModelMetadata} from '../models/ModelMetadata';
+import ModelMetadataService from "../services/ModelMetadataService";
 
 
  interface FormMetadataEditFormProps {
@@ -28,6 +28,28 @@ import ComponentMetadataEditForm from './ComponentMetadataEditForm';
       });
     }
   }, [editedItem.idFormMetadata])
+
+  
+  const [lookUpItemsFormMetadata, setLookUpItemsFormMetadata] = useState<FormMetadata[]>();
+  
+  useEffect(() => {
+    FormMetadataService.getall().then((item) => {
+        setLookUpItemsFormMetadata(item);
+    });
+  }, [])
+
+  const selectLookUpItemsFormMetadata = useMemo(()=>lookUpItemsFormMetadata ? lookUpItemsFormMetadata.map(i => <option value={i.idFormMetadata} selected={i.idFormMetadata===editedItem.idEditForm}>{i.idFormMetadata + ' ' + i.name + ' ' + i.caption + ' ' + i.description + ' ' + i.addToNavBar}</option>):null, [lookUpItemsFormMetadata]);
+
+  
+  const [lookUpItemsModelMetadata, setLookUpItemsModelMetadata] = useState<ModelMetadata[]>();
+  
+  useEffect(() => {
+    ModelMetadataService.getall().then((item) => {
+        setLookUpItemsModelMetadata(item);
+    });
+  }, [])
+
+  const selectLookUpItemsModelMetadata = useMemo(()=>lookUpItemsModelMetadata ? lookUpItemsModelMetadata.map(i => <option value={i.idModelMetadata} selected={i.idModelMetadata===editedItem.idModel}>{i.idModelMetadata + ' ' + i.name + ' ' + i.initData + ' ' + i.nameSpace + ' ' + i.caption}</option>):null, [lookUpItemsModelMetadata]);
 
 
 
@@ -122,13 +144,29 @@ const toUpperFirstChar = str => {
       <div className="m-3 card">    
         <div className="card-body"> 
             <div className="card-title">
-                <h1 className="h4 fw-normal">Формы</h1>
+                <h1 className="h4 fw-normal">Компоненты формы</h1>
             </div>
             <div className="card-text">
                 <Grid  onAdd={addComponents} onEdit={setEditedComponents} onDelete={handleDeleteComponents} items={editedItem.components} props={[{Name:'idComponentMetadata', Caption: 'ID компонента формы', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'modelProp', Caption: 'Компонент свойства модели', Visible: true, Type: 'bool'}]} />
             </div>
         </div>
       </div>
+
+      <div className="m-3">   
+        <label className="form-label" htmlFor="editForm">Форма редактирования</label>
+        <select name="editForm" className="form-control selectpicker" data-live-search="true" id="editForm" onChange={handleSelectChange}>
+            {selectLookUpItemsFormMetadata}
+        </select>
+      </div> 
+
+
+      <div className="m-3">   
+        <label className="form-label" htmlFor="model">Модель</label>
+        <select name="model" className="form-control selectpicker" data-live-search="true" id="model" onChange={handleSelectChange}>
+            {selectLookUpItemsModelMetadata}
+        </select>
+      </div> 
+
          <button className="w-50 btn btn-danger" >Отмена</button>
          <button className="w-50 btn btn-success" type="submit">Сохранить</button>
          </form>}

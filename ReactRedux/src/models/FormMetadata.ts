@@ -9,11 +9,11 @@ export interface FormMetadata {
   addToNavBar:boolean;
   components:ComponentMetadata[];
   idProjectMetadata:number;
-  projectMetadata:ProjectMetadata;
+  projectMetadata?:ProjectMetadata;
   idEditForm:number;
   editForm?:FormMetadata;
   idModel:number;
-  model:ModelMetadata;
+  model?:ModelMetadata;
 }
 
 export const initFormMetadata = {
@@ -24,9 +24,7 @@ export const initFormMetadata = {
   addToNavBar: false,
   components: [],
   idProjectMetadata: 0,
-  projectMetadata: initProjectMetadata,
   idEditForm: 0,
   idModel: 0,
-  model: initModelMetadata,
 
 }

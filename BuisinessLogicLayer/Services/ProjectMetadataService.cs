@@ -59,7 +59,7 @@ namespace BuisinessLogicLayer.Services
 
         public ProjectMetadata Get(Expression<Func<ProjectMetadata, bool>> where = null)
         {
-            ProjectMetadata t = Unit.RepProjectMetadata.Get(where, "Models", "Forms");
+            ProjectMetadata t = Unit.RepProjectMetadata.Get(where, "Models", "Forms", "Forms.EditForm", "Forms.Model");
 
             return t;
         }

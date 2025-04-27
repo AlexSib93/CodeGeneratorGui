@@ -19,11 +19,11 @@ namespace DataAccessLayer.Dto
         public string Type { get; set; }
         public string Caption { get; set; }
 
-        public int? IdModel { get; set; }
+        public int? IdModelMetadata { get; set; }
 
         
-        [ForeignKey("IdModel")]
-        public virtual ModelMetadata? Model { get; set; }        public bool IsPrimaryKey { get; set; }
+        [ForeignKey("IdModelMetadata")]
+        public virtual ModelMetadata? ModelMetadata { get; set; }        public bool IsPrimaryKey { get; set; }
         public bool IsVirtual { get; set; }
         public bool Visible { get; set; }
         public bool Editable { get; set; }
