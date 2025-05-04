@@ -15,9 +15,14 @@ namespace BuisinessLogicLayer.Services
 
         IEnumerable<ModelMetadata> Update(IEnumerable<ModelMetadata> modelMetadatas);
 
+        IEnumerable<ModelMetadata> Update(int idMaster, IEnumerable<ModelMetadata> modelMetadatas);
+
         ModelMetadata Get(Expression<Func<ModelMetadata, bool>> where = null);
 
         IEnumerable<ModelMetadata> GetAll(Expression<Func<ModelMetadata, bool>> where = null);
+
+        IEnumerable<ModelMetadata> GetByMaster(int idMaster);
+
 
         void Delete(int id);
     }

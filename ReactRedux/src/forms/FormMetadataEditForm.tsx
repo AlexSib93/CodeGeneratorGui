@@ -38,7 +38,7 @@ import ModelMetadataService from "../services/ModelMetadataService";
     });
   }, [])
 
-  const selectLookUpItemsFormMetadata = useMemo(()=>lookUpItemsFormMetadata ? lookUpItemsFormMetadata.map(i => <option value={i.idFormMetadata} selected={i.idFormMetadata===editedItem.idEditForm}>{i.idFormMetadata + ' ' + i.name + ' ' + i.caption + ' ' + i.description + ' ' + i.addToNavBar}</option>):null, [lookUpItemsFormMetadata]);
+  const selectLookUpItemsFormMetadata = useMemo(()=>lookUpItemsFormMetadata ? lookUpItemsFormMetadata.map(i => <option  key={i.idFormMetadata}  value={i.idFormMetadata}>{i.name + ' ' + i.caption + ' ' + i.description + ' ' + i.addToNavBar}</option>):null, [lookUpItemsFormMetadata]);
 
   
   const [lookUpItemsModelMetadata, setLookUpItemsModelMetadata] = useState<ModelMetadata[]>();
@@ -49,7 +49,7 @@ import ModelMetadataService from "../services/ModelMetadataService";
     });
   }, [])
 
-  const selectLookUpItemsModelMetadata = useMemo(()=>lookUpItemsModelMetadata ? lookUpItemsModelMetadata.map(i => <option value={i.idModelMetadata} selected={i.idModelMetadata===editedItem.idModel}>{i.idModelMetadata + ' ' + i.name + ' ' + i.initData + ' ' + i.nameSpace + ' ' + i.caption}</option>):null, [lookUpItemsModelMetadata]);
+  const selectLookUpItemsModelMetadata = useMemo(()=>lookUpItemsModelMetadata ? lookUpItemsModelMetadata.map(i => <option  key={i.idModelMetadata}  value={i.idModelMetadata}>{i.name + ' ' + i.initData + ' ' + i.nameSpace + ' ' + i.caption}</option>):null, [lookUpItemsModelMetadata]);
 
 
 
@@ -106,9 +106,9 @@ const toUpperFirstChar = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, getItemFunc: (id: number) => any ) => {
     const { name, value } = e.target;
-    setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: null });
+    setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) });
   };
 
 
@@ -154,7 +154,7 @@ const toUpperFirstChar = str => {
 
       <div className="m-3">   
         <label className="form-label" htmlFor="editForm">Форма редактирования</label>
-        <select name="editForm" className="form-control selectpicker" data-live-search="true" id="editForm" onChange={handleSelectChange}>
+        <select name="editForm" className="form-control selectpicker" data-live-search="true" id="editForm"  value={editedItem.idEditForm}  onChange={(e) =>  handleSelectChange(e, (id:number) => lookUpItemsFormMetadata.find(p => p.idFormMetadata === id))}>
             {selectLookUpItemsFormMetadata}
         </select>
       </div> 
@@ -162,13 +162,13 @@ const toUpperFirstChar = str => {
 
       <div className="m-3">   
         <label className="form-label" htmlFor="model">Модель</label>
-        <select name="model" className="form-control selectpicker" data-live-search="true" id="model" onChange={handleSelectChange}>
+        <select name="model" className="form-control selectpicker" data-live-search="true" id="model"  value={editedItem.idModel}  onChange={(e) =>  handleSelectChange(e, (id:number) => lookUpItemsModelMetadata.find(p => p.idModelMetadata === id))}>
             {selectLookUpItemsModelMetadata}
         </select>
       </div> 
 
-         <button className="w-50 btn btn-danger" >Отмена</button>
-         <button className="w-50 btn btn-success" type="submit">Сохранить</button>
+         <button className="w-50 btn btn-danger"  type='button' onClick={props.onCancel} >Отмена</button>
+         <button className="w-50 btn btn-success" type='button' onClick={() => props.onSave(editedItem)} >Сохранить</button>
          </form>}
 
         { editedComponents && <ComponentMetadataEditForm model={editedComponents} onSave={submitEditFormComponents} onCancel={handleCancelEditComponents} />}

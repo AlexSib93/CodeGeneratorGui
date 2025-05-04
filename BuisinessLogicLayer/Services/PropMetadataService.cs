@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
+using System.Linq;
 
 namespace BuisinessLogicLayer.Services
 {
@@ -27,7 +28,6 @@ namespace BuisinessLogicLayer.Services
         public PropMetadata Update(PropMetadata propMetadata)
         {
 
-
             int res = Unit.RepPropMetadata.Update(propMetadata);
 
             return propMetadata;
@@ -38,10 +38,36 @@ namespace BuisinessLogicLayer.Services
             foreach(PropMetadata item in propMetadatas)
             {
 
-
             }
 
             int res = Unit.RepPropMetadata.Update(propMetadatas);
+
+            return propMetadatas;
+        }
+
+        public IEnumerable<PropMetadata> Update(int idMaster, IEnumerable<PropMetadata> propMetadatas)
+        {
+            IEnumerable<int> existedIds = Unit.RepPropMetadata.GetIds(i => i.IdModelMetadata == idMaster, i => i.IdPropMetadata);
+            
+            foreach (PropMetadata item in propMetadatas)
+            {
+                if (existedIds.Any(c => c == item.IdPropMetadata))
+                {
+                    Update(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
+
+            foreach (int existedId in existedIds)
+            {
+                if (!propMetadatas.Any(c => c.IdPropMetadata == existedId))
+                {
+                    Delete(existedId);
+                }
+            }
 
             return propMetadatas;
         }
@@ -66,6 +92,14 @@ namespace BuisinessLogicLayer.Services
 
             return propMetadatas;
         }
+
+        public IEnumerable<PropMetadata> GetByMaster(int idMaster)
+        {
+            IEnumerable<PropMetadata> propMetadatas = Unit.RepPropMetadata.GetAll( x => x.IdModelMetadata == idMaster, "ModelMetadata");
+
+            return propMetadatas;
+        }
+
 
         public void Delete(int id)
         {

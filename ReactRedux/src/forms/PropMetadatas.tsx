@@ -1,9 +1,11 @@
 ﻿
-import { useEffect,useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { PropMetadata,  initPropMetadata } from "../models/PropMetadata";
 import PropMetadataService from "../services/PropMetadataService";
 import { Table } from "../components/Table";
 import {Grid} from '../components/Grid';
+import { setLoading, showErrorSnackbar, showSuccessSnackbar } from "../state/ui-state";
+import { ContextApp } from "../state/state";
 import PropMetadataEditForm from "./PropMetadataEditForm";
 
 export interface IPropMetadatasProps
@@ -13,14 +15,21 @@ export interface IPropMetadatasProps
 }
 
 export const PropMetadatas = (props: IPropMetadatasProps) => {
+
+    const {state,dispatch} = useContext(ContextApp);
     const [item, setItem] = useState<PropMetadata>(null);
     const [items, setItems] = useState<PropMetadata[]>(props.items);
 
 
     useEffect(() => {
         if (props.autoFetch) {
+            dispatch(setLoading(true));
             PropMetadataService.getall().then((item) => {
                 setItems(item);
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
     }, [])
@@ -49,15 +58,29 @@ export const PropMetadatas = (props: IPropMetadatasProps) => {
 
     const submitEditForm = (model: PropMetadata) => {
         setItem(null);
+            dispatch(setLoading(true));
         if (model && model.idPropMetadata > 0) {
-            PropMetadataService.put(model).then((item) => {
-                handleEdit(item);
-            });
+            PropMetadataService.put(model)
+                .then((item) => {
+                    dispatch(showSuccessSnackbar('Объект успешно сохранен'));
+                    handleEdit(item);
+                }).catch((err) => {
+                    dispatch(showErrorSnackbar(err));
+                }).finally(() => {
+                    dispatch(setLoading(false));
+                });
         } else {
-            PropMetadataService.post(model).then((item) => {
+            PropMetadataService
+            .post(model).then((item) => {
                 handleAdd(item);
+                dispatch(showSuccessSnackbar('Объект успешно создан'));
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
+
     }
 
     const cancelEdit = () => {

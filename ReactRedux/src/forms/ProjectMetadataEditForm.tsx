@@ -113,9 +113,9 @@ const toUpperFirstChar = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, getItemFunc: (id: number) => any ) => {
     const { name, value } = e.target;
-    setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: null });
+    setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) });
   };
 
 
@@ -173,8 +173,8 @@ const toUpperFirstChar = str => {
             </div>
         </div>
       </div>
-         <button className="w-50 btn btn-danger" >Отмена</button>
-         <button className="w-50 btn btn-success" type="submit">Сохранить</button>
+         <button className="w-50 btn btn-danger"  type='button' onClick={props.onCancel} >Отмена</button>
+         <button className="w-50 btn btn-success" type='button' onClick={() => props.onSave(editedItem)} >Сохранить</button>
          </form>}
 
         { editedModels && <ModelMetadataEditForm model={editedModels} onSave={submitEditFormModels} onCancel={handleCancelEditModels} />}

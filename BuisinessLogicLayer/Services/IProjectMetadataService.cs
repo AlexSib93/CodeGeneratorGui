@@ -19,6 +19,7 @@ namespace BuisinessLogicLayer.Services
 
         IEnumerable<ProjectMetadata> GetAll(Expression<Func<ProjectMetadata, bool>> where = null);
 
+
         void Delete(int id);
     }
 }

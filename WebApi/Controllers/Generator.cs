@@ -81,17 +81,9 @@ namespace CodeGeneratorGUI
                 var mngr = new ProjectFileManager("./projects");
                 ProjectMetadata project = mngr.LoadProject<ProjectMetadata>(name);
 
-                Process hostApiProcess = BuildAndRunWebApi(project);
-                Process hostClientProcess = BuildAndRunClient(project, true);
+                ProjectRunner.RunProject(project); 
 
-                hostClientProcess.WaitForExit();
-                hostApiProcess.WaitForExit();
-
-                hostClientProcess.Kill();
-                hostApiProcess.Kill();
-
-
-                return Ok("Проект успешно сгенерирован");
+                return Ok("Проект успешно запущен");
             }
             catch (Exception ex)
             {
@@ -99,53 +91,6 @@ namespace CodeGeneratorGUI
                 return BadRequest(ex.Message + " " + ex.InnerException?.Message);
             }
         }
-        private Process BuildAndRunWebApi(ProjectMetadata project)
-        {
-            string webApiPath = $@"{project.Path}\WebApi\";
-            bool useCmdWindow = true;
-            Process process = RunCommand("dotnet", "run", webApiPath, useCmdWindow, false);
 
-            return process;
-        }
-        private static Process RunCommand(string fileName, string args, string workDirrectory, bool useCmdWindow, bool waitForExit = true)
-        {
-            Process process = new Process();
-
-            process.StartInfo.FileName = fileName; // Используем команду dotnet
-            process.StartInfo.Arguments = args; // Используем команду run для запуска проекта .NET Core или .NET 5+
-            process.StartInfo.WorkingDirectory = workDirrectory;
-            process.StartInfo.UseShellExecute = useCmdWindow; // Это нужно, чтобы скрыть окно командной строки (если не требуется отображение)
-            process.StartInfo.RedirectStandardOutput = !useCmdWindow; // Указываем, что хотим перехватить вывод командной строки
-            process.StartInfo.CreateNoWindow = !useCmdWindow; // Скрываем окно командной строки
-
-            // Запускаем процесс
-            process.Start();
-
-            if (!useCmdWindow)
-            {
-                string output = process.StandardOutput.ReadToEnd();
-                Console.WriteLine(output);
-            }
-
-            if (waitForExit)
-            {
-                process.WaitForExit();
-            }
-
-            return process;
-        }
-
-        private Process BuildAndRunClient(ProjectMetadata project, bool useCmdWindow = true)
-        {
-            string workDirrectory = $@"{project.Path}\ReactRedux";
-
-            Process process = RunCommand("npm", "i", workDirrectory, useCmdWindow);
-            process.Kill();
-            process.Dispose();
-
-            Process process2 = RunCommand("npm", "start", workDirrectory, useCmdWindow, false);
-
-            return process2;
-        }
     }
 }

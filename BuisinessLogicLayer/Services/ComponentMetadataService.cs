@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
+using System.Linq;
 
 namespace BuisinessLogicLayer.Services
 {
@@ -26,8 +27,7 @@ namespace BuisinessLogicLayer.Services
 
         public ComponentMetadata Update(ComponentMetadata componentMetadata)
         {
-              PropMetadataService.Update(componentMetadata.Props);
-
+              PropMetadataService.Update( componentMetadata.IdComponentMetadata, componentMetadata.Props);
             int res = Unit.RepComponentMetadata.Update(componentMetadata);
 
             return componentMetadata;
@@ -36,12 +36,38 @@ namespace BuisinessLogicLayer.Services
         public IEnumerable<ComponentMetadata> Update(IEnumerable<ComponentMetadata> componentMetadatas)
         {
             foreach(ComponentMetadata item in componentMetadatas)
-            {
+            {              PropMetadataService.Update( item.Props);
 
-              PropMetadataService.Update(item.Props);
             }
 
             int res = Unit.RepComponentMetadata.Update(componentMetadatas);
+
+            return componentMetadatas;
+        }
+
+        public IEnumerable<ComponentMetadata> Update(int idMaster, IEnumerable<ComponentMetadata> componentMetadatas)
+        {
+            IEnumerable<int> existedIds = Unit.RepComponentMetadata.GetIds(i => i.IdModelPropMetadata == idMaster, i => i.IdComponentMetadata);
+            
+            foreach (ComponentMetadata item in componentMetadatas)
+            {
+                if (existedIds.Any(c => c == item.IdComponentMetadata))
+                {
+                    Update(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
+
+            foreach (int existedId in existedIds)
+            {
+                if (!componentMetadatas.Any(c => c.IdComponentMetadata == existedId))
+                {
+                    Delete(existedId);
+                }
+            }
 
             return componentMetadatas;
         }
@@ -66,6 +92,14 @@ namespace BuisinessLogicLayer.Services
 
             return componentMetadatas;
         }
+
+        public IEnumerable<ComponentMetadata> GetByMaster(int idMaster)
+        {
+            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll( x => x.IdModelPropMetadata == idMaster, "ModelPropMetadata", "FormMetadata");
+
+            return componentMetadatas;
+        }
+
 
         public void Delete(int id)
         {

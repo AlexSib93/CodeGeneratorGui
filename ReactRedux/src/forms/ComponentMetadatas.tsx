@@ -1,9 +1,11 @@
 ﻿
-import { useEffect,useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { ComponentMetadata,  initComponentMetadata } from "../models/ComponentMetadata";
 import ComponentMetadataService from "../services/ComponentMetadataService";
 import { Table } from "../components/Table";
 import {Grid} from '../components/Grid';
+import { setLoading, showErrorSnackbar, showSuccessSnackbar } from "../state/ui-state";
+import { ContextApp } from "../state/state";
 import ComponentMetadataEditForm from "./ComponentMetadataEditForm";
 
 export interface IComponentMetadatasProps
@@ -13,14 +15,21 @@ export interface IComponentMetadatasProps
 }
 
 export const ComponentMetadatas = (props: IComponentMetadatasProps) => {
+
+    const {state,dispatch} = useContext(ContextApp);
     const [item, setItem] = useState<ComponentMetadata>(null);
     const [items, setItems] = useState<ComponentMetadata[]>(props.items);
 
 
     useEffect(() => {
         if (props.autoFetch) {
+            dispatch(setLoading(true));
             ComponentMetadataService.getall().then((item) => {
                 setItems(item);
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
     }, [])
@@ -49,15 +58,29 @@ export const ComponentMetadatas = (props: IComponentMetadatasProps) => {
 
     const submitEditForm = (model: ComponentMetadata) => {
         setItem(null);
+            dispatch(setLoading(true));
         if (model && model.idComponentMetadata > 0) {
-            ComponentMetadataService.put(model).then((item) => {
-                handleEdit(item);
-            });
+            ComponentMetadataService.put(model)
+                .then((item) => {
+                    dispatch(showSuccessSnackbar('Объект успешно сохранен'));
+                    handleEdit(item);
+                }).catch((err) => {
+                    dispatch(showErrorSnackbar(err));
+                }).finally(() => {
+                    dispatch(setLoading(false));
+                });
         } else {
-            ComponentMetadataService.post(model).then((item) => {
+            ComponentMetadataService
+            .post(model).then((item) => {
                 handleAdd(item);
+                dispatch(showSuccessSnackbar('Объект успешно создан'));
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
+
     }
 
     const cancelEdit = () => {

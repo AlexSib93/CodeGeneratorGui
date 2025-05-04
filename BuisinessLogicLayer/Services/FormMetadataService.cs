@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
+using System.Linq;
 
 namespace BuisinessLogicLayer.Services
 {
@@ -19,6 +20,8 @@ namespace BuisinessLogicLayer.Services
 
         public FormMetadata Add(FormMetadata formMetadata)
         {
+             formMetadata.EditForm = null;
+             formMetadata.Model = null;
             Unit.RepFormMetadata.Add(formMetadata);
 
             return formMetadata;
@@ -26,8 +29,9 @@ namespace BuisinessLogicLayer.Services
 
         public FormMetadata Update(FormMetadata formMetadata)
         {
-              ComponentMetadataService.Update(formMetadata.Components);
-
+              ComponentMetadataService.Update( formMetadata.IdFormMetadata, formMetadata.Components);
+             formMetadata.EditForm = null;
+             formMetadata.Model = null;
             int res = Unit.RepFormMetadata.Update(formMetadata);
 
             return formMetadata;
@@ -36,12 +40,40 @@ namespace BuisinessLogicLayer.Services
         public IEnumerable<FormMetadata> Update(IEnumerable<FormMetadata> formMetadatas)
         {
             foreach(FormMetadata item in formMetadatas)
-            {
+            {              ComponentMetadataService.Update( item.Components);
 
-              ComponentMetadataService.Update(item.Components);
+             item.EditForm = null;
+             item.Model = null;
             }
 
             int res = Unit.RepFormMetadata.Update(formMetadatas);
+
+            return formMetadatas;
+        }
+
+        public IEnumerable<FormMetadata> Update(int idMaster, IEnumerable<FormMetadata> formMetadatas)
+        {
+            IEnumerable<int> existedIds = Unit.RepFormMetadata.GetIds(i => i.IdProjectMetadata == idMaster, i => i.IdFormMetadata);
+            
+            foreach (FormMetadata item in formMetadatas)
+            {
+                if (existedIds.Any(c => c == item.IdFormMetadata))
+                {
+                    Update(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
+
+            foreach (int existedId in existedIds)
+            {
+                if (!formMetadatas.Any(c => c.IdFormMetadata == existedId))
+                {
+                    Delete(existedId);
+                }
+            }
 
             return formMetadatas;
         }
@@ -66,6 +98,14 @@ namespace BuisinessLogicLayer.Services
 
             return formMetadatas;
         }
+
+        public IEnumerable<FormMetadata> GetByMaster(int idMaster)
+        {
+            IEnumerable<FormMetadata> formMetadatas = Unit.RepFormMetadata.GetAll( x => x.IdProjectMetadata == idMaster, "ProjectMetadata");
+
+            return formMetadatas;
+        }
+
 
         public void Delete(int id)
         {

@@ -1,9 +1,11 @@
 ﻿
-import { useEffect,useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { FormMetadata,  initFormMetadata } from "../models/FormMetadata";
 import FormMetadataService from "../services/FormMetadataService";
 import { Table } from "../components/Table";
 import {Grid} from '../components/Grid';
+import { setLoading, showErrorSnackbar, showSuccessSnackbar } from "../state/ui-state";
+import { ContextApp } from "../state/state";
 import FormMetadataEditForm from "./FormMetadataEditForm";
 
 export interface IFormMetadatasProps
@@ -13,14 +15,21 @@ export interface IFormMetadatasProps
 }
 
 export const FormMetadatas = (props: IFormMetadatasProps) => {
+
+    const {state,dispatch} = useContext(ContextApp);
     const [item, setItem] = useState<FormMetadata>(null);
     const [items, setItems] = useState<FormMetadata[]>(props.items);
 
 
     useEffect(() => {
         if (props.autoFetch) {
+            dispatch(setLoading(true));
             FormMetadataService.getall().then((item) => {
                 setItems(item);
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
     }, [])
@@ -49,15 +58,29 @@ export const FormMetadatas = (props: IFormMetadatasProps) => {
 
     const submitEditForm = (model: FormMetadata) => {
         setItem(null);
+            dispatch(setLoading(true));
         if (model && model.idFormMetadata > 0) {
-            FormMetadataService.put(model).then((item) => {
-                handleEdit(item);
-            });
+            FormMetadataService.put(model)
+                .then((item) => {
+                    dispatch(showSuccessSnackbar('Объект успешно сохранен'));
+                    handleEdit(item);
+                }).catch((err) => {
+                    dispatch(showErrorSnackbar(err));
+                }).finally(() => {
+                    dispatch(setLoading(false));
+                });
         } else {
-            FormMetadataService.post(model).then((item) => {
+            FormMetadataService
+            .post(model).then((item) => {
                 handleAdd(item);
+                dispatch(showSuccessSnackbar('Объект успешно создан'));
+            }).catch((err) => {
+                dispatch(showErrorSnackbar(err));
+            }).finally(() => {
+                dispatch(setLoading(false));
             });
         }
+
     }
 
     const cancelEdit = () => {

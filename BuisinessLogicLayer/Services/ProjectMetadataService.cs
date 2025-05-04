@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
+using System.Linq;
 
 namespace BuisinessLogicLayer.Services
 {
@@ -28,9 +29,8 @@ namespace BuisinessLogicLayer.Services
 
         public ProjectMetadata Update(ProjectMetadata projectMetadata)
         {
-              ModelMetadataService.Update(projectMetadata.Models);
-              FormMetadataService.Update(projectMetadata.Forms);
-
+              ModelMetadataService.Update( projectMetadata.IdProjectMetadata, projectMetadata.Models);
+              FormMetadataService.Update( projectMetadata.IdProjectMetadata, projectMetadata.Forms);
             int res = Unit.RepProjectMetadata.Update(projectMetadata);
 
             return projectMetadata;
@@ -39,10 +39,9 @@ namespace BuisinessLogicLayer.Services
         public IEnumerable<ProjectMetadata> Update(IEnumerable<ProjectMetadata> projectMetadatas)
         {
             foreach(ProjectMetadata item in projectMetadatas)
-            {
+            {              ModelMetadataService.Update( item.Models);
+              FormMetadataService.Update( item.Forms);
 
-              ModelMetadataService.Update(item.Models);
-              FormMetadataService.Update(item.Forms);
             }
 
             int res = Unit.RepProjectMetadata.Update(projectMetadatas);
@@ -70,6 +69,7 @@ namespace BuisinessLogicLayer.Services
 
             return projectMetadatas;
         }
+
 
         public void Delete(int id)
         {

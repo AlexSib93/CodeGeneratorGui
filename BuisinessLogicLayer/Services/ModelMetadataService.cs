@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
+using System.Linq;
 
 namespace BuisinessLogicLayer.Services
 {
@@ -61,8 +62,7 @@ Add(JsonConvert.DeserializeObject<IEnumerable<ModelMetadata>>(@"[
 
         public ModelMetadata Update(ModelMetadata modelMetadata)
         {
-              PropMetadataService.Update(modelMetadata.Props);
-
+              PropMetadataService.Update( modelMetadata.IdModelMetadata, modelMetadata.Props);
             int res = Unit.RepModelMetadata.Update(modelMetadata);
 
             return modelMetadata;
@@ -71,12 +71,38 @@ Add(JsonConvert.DeserializeObject<IEnumerable<ModelMetadata>>(@"[
         public IEnumerable<ModelMetadata> Update(IEnumerable<ModelMetadata> modelMetadatas)
         {
             foreach(ModelMetadata item in modelMetadatas)
-            {
+            {              PropMetadataService.Update( item.Props);
 
-              PropMetadataService.Update(item.Props);
             }
 
             int res = Unit.RepModelMetadata.Update(modelMetadatas);
+
+            return modelMetadatas;
+        }
+
+        public IEnumerable<ModelMetadata> Update(int idMaster, IEnumerable<ModelMetadata> modelMetadatas)
+        {
+            IEnumerable<int> existedIds = Unit.RepModelMetadata.GetIds(i => i.IdProjectMetadata == idMaster, i => i.IdModelMetadata);
+            
+            foreach (ModelMetadata item in modelMetadatas)
+            {
+                if (existedIds.Any(c => c == item.IdModelMetadata))
+                {
+                    Update(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
+
+            foreach (int existedId in existedIds)
+            {
+                if (!modelMetadatas.Any(c => c.IdModelMetadata == existedId))
+                {
+                    Delete(existedId);
+                }
+            }
 
             return modelMetadatas;
         }
@@ -101,6 +127,14 @@ Add(JsonConvert.DeserializeObject<IEnumerable<ModelMetadata>>(@"[
 
             return modelMetadatas;
         }
+
+        public IEnumerable<ModelMetadata> GetByMaster(int idMaster)
+        {
+            IEnumerable<ModelMetadata> modelMetadatas = Unit.RepModelMetadata.GetAll( x => x.IdProjectMetadata == idMaster, "ProjectMetadata");
+
+            return modelMetadatas;
+        }
+
 
         public void Delete(int id)
         {
