@@ -33,6 +33,13 @@ namespace CodeGeneratorGUI
 
                 Settings.TemplatesPath = @".\Templates";
                 Generator generator = new Generator();
+
+                //tEST
+                project.WebApiHttpsPort++; 
+                project.DevServerPort++;
+                project.Path = @"./Projects/TestDeploy";
+                //TEst
+
                 generator.GenCode(project);
 
                 return Ok("Проект успешно сгенерирован");
@@ -80,6 +87,12 @@ namespace CodeGeneratorGUI
             {
                 var mngr = new ProjectFileManager("./projects");
                 ProjectMetadata project = mngr.LoadProject<ProjectMetadata>(name);
+
+                //tEST
+                project.WebApiHttpsPort++;
+                project.DevServerPort++;
+                project.Path = @"./Projects/TestDeploy";
+                //TEst
 
                 ProjectRunner.RunProject(project); 
 

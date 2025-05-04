@@ -10,15 +10,19 @@
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="projects\**" />
     <Compile Remove="Templates\**" />
     <Content Remove="ClientApp\**" />
     <Content Remove="Models\**" />
+    <Content Remove="projects\**" />
     <Content Remove="Templates\**" />
     <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="projects\**" />
     <EmbeddedResource Remove="Templates\**" />
     <None Remove="ClientApp\**" />
     <None Remove="Models\**" />
+    <None Remove="projects\**" />
     <None Remove="Templates\**" />
   </ItemGroup>
 
@@ -43,10 +47,10 @@
     <ProjectReference Include="..\BuisinessLogicLayer\BuisinessLogicLayer.csproj" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="CodeGenerator">
-			<HintPath>..\..\CodeGenerator\bin\Debug\net6.0\CodeGenerator.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+  <ItemGroup>
+    <Reference Include="CodeGenerator">
+      <HintPath>..\libs\CodeGenerator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

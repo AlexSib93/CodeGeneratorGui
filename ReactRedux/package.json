@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": " set PUBLIC_URL=https://localhost/CodeGeneratorGUI/&&set PORT=3000&&react-scripts start",
+    "start": " set PUBLIC_URL=https://localhost/CodeGeneratorGUI/&&set PORT=3000&&set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     
