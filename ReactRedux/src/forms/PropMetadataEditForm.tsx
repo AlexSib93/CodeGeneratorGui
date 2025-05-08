@@ -9,6 +9,7 @@ import {Grid} from '../components/Grid';
 
 
 
+
  interface PropMetadataEditFormProps {
    model: PropMetadata;
    onSave: (item: PropMetadata) => void;
@@ -61,6 +62,11 @@ const toUpperFirstChar = str => {
     setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) });
   };
 
+
+  const handleEnumSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setEditedItem({ ...editedItem, [name]: Number(value) });
+  };
 
    const handleSubmit = (e: FormEvent) => {
      e.preventDefault();

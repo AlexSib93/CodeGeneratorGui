@@ -10,6 +10,7 @@ import {ModelMetadata,initModelMetadata} from '../models/ModelMetadata';
 import ModelMetadataService from "../services/ModelMetadataService";
 
 
+
  interface FormMetadataEditFormProps {
    model: FormMetadata;
    onSave: (item: FormMetadata) => void;
@@ -111,6 +112,11 @@ const toUpperFirstChar = str => {
     setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) });
   };
 
+
+  const handleEnumSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setEditedItem({ ...editedItem, [name]: Number(value) });
+  };
 
    const handleSubmit = (e: FormEvent) => {
      e.preventDefault();

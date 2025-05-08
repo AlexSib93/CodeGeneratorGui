@@ -10,6 +10,7 @@ import PropMetadataEditForm from './PropMetadataEditForm';
 
 
 
+
  interface ComponentMetadataEditFormProps {
    model: ComponentMetadata;
    onSave: (item: ComponentMetadata) => void;
@@ -89,6 +90,11 @@ const toUpperFirstChar = str => {
     setEditedItem({ ...editedItem, ["id" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) });
   };
 
+
+  const handleEnumSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setEditedItem({ ...editedItem, [name]: Number(value) });
+  };
 
    const handleSubmit = (e: FormEvent) => {
      e.preventDefault();
