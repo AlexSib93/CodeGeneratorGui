@@ -1,30 +1,30 @@
 ﻿
 import {  useContext, useEffect, useState } from "react";
-import { ProjectMetadata,  initProjectMetadata } from "../models/ProjectMetadata";
-import ProjectMetadataService from "../services/ProjectMetadataService";
+import { EnumMetadata,  initEnumMetadata } from "../models/EnumMetadata";
+import EnumMetadataService from "../services/EnumMetadataService";
 import { Table } from "../components/Table";
 import {Grid} from '../components/Grid';
 import { setLoading, showErrorSnackbar, showSuccessSnackbar } from "../state/ui-state";
 import { ContextApp } from "../state/state";
-import ProjectMetadataEditForm from "./ProjectMetadataEditForm";
+import EnumMetadataEditForm from "./EnumMetadataEditForm";
 
-export interface IProjectMetadatasProps
+export interface IEnumMetadatasProps
 {
-    items: ProjectMetadata[],
+    items: EnumMetadata[],
     autoFetch: boolean
 }
 
-export const ProjectMetadatas = (props: IProjectMetadatasProps) => {
+export const EnumMetadatas = (props: IEnumMetadatasProps) => {
 
     const {state,dispatch} = useContext(ContextApp);
-    const [item, setItem] = useState<ProjectMetadata>(null);
-    const [items, setItems] = useState<ProjectMetadata[]>(props.items);
+    const [item, setItem] = useState<EnumMetadata>(null);
+    const [items, setItems] = useState<EnumMetadata[]>(props.items);
 
 
     useEffect(() => {
         if (props.autoFetch) {
             dispatch(setLoading(true));
-            ProjectMetadataService.getall().then((item) => {
+            EnumMetadataService.getall().then((item) => {
                 setItems(item);
             }).catch((err) => {
                 dispatch(showErrorSnackbar(err));
@@ -36,31 +36,31 @@ export const ProjectMetadatas = (props: IProjectMetadatasProps) => {
 
 
     const addItem = () => {
-        var newItem = { ...initProjectMetadata };
+        var newItem = { ...initEnumMetadata };
         setItem(newItem);
     }
 
-    const handleAdd = (model: ProjectMetadata) => {
+    const handleAdd = (model: EnumMetadata) => {
         setItems([...items, model]);
     };
 
-    const handleEdit = (model: ProjectMetadata) => {
+    const handleEdit = (model: EnumMetadata) => {
         var newItems = items.map(i => (i === item) ? model : i);
         setItems(newItems);
         setItem(null);
     };
 
-    const handleDelete = (model: ProjectMetadata) => {
+    const handleDelete = (model: EnumMetadata) => {
         var newItems = items.filter(i => i !== model);
         setItems(newItems);
-        ProjectMetadataService.delete(model.idProjectMetadata);
+        EnumMetadataService.delete(model.idEnumMetadata);
     };
 
-    const submitEditForm = (model: ProjectMetadata) => {
+    const submitEditForm = (model: EnumMetadata) => {
         setItem(null);
             dispatch(setLoading(true));
-        if (model && model.idProjectMetadata > 0) {
-            ProjectMetadataService.put(model)
+        if (model && model.idEnumMetadata > 0) {
+            EnumMetadataService.put(model)
                 .then((item) => {
                     dispatch(showSuccessSnackbar('Объект успешно сохранен'));
                     handleEdit(item);
@@ -70,7 +70,7 @@ export const ProjectMetadatas = (props: IProjectMetadatasProps) => {
                     dispatch(setLoading(false));
                 });
         } else {
-            ProjectMetadataService
+            EnumMetadataService
             .post(model).then((item) => {
                 handleAdd(item);
                 dispatch(showSuccessSnackbar('Объект успешно создан'));
@@ -92,16 +92,16 @@ export const ProjectMetadatas = (props: IProjectMetadatasProps) => {
                   <div className="m-3 card">    
         <div className="card-body"> 
             <div className="card-title">
-                <h1 className="h4 fw-normal">Проект</h1>
+                <h1 className="h4 fw-normal">Тип-перечисление</h1>
             </div>
             <div className="card-text">
-                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idProjectMetadata', Caption: 'ID проекта', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'path', Caption: 'Путь', Visible: true, Type: 'string'}, {Name:'dbConnectionString', Caption: 'Строка подключения к БД', Visible: true, Type: 'string'}, {Name:'unitOfWork', Caption: 'Объект работы с БД (MockUnit или EfUnit )', Visible: true, Type: 'string'}, {Name:'webApiHttpsPort', Caption: 'Порт для запуска WebApi', Visible: true, Type: 'int'}, {Name:'devServerPort', Caption: 'Порт для запуска WebPackDevServer', Visible: true, Type: 'int'}]} />
+                <Grid items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}  enableFilters={true} props={[{Name:'idEnumMetadata', Caption: 'ID типа-перечисления', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>
         </div>}
              {item && <div>
-                <ProjectMetadataEditForm model={item} onSave={submitEditForm} onCancel={cancelEdit} />
+                <EnumMetadataEditForm model={item} onSave={submitEditForm} onCancel={cancelEdit} />
             </div> }
         </ div >
     };

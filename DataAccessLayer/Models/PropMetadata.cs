@@ -24,6 +24,7 @@ namespace DataAccessLayer.Dto
         
         [ForeignKey("IdModelMetadata")]
         public virtual ModelMetadata? ModelMetadata { get; set; }        public bool IsPrimaryKey { get; set; }
+        public bool IsEnum { get; set; }
         public bool IsVirtual { get; set; }
         public bool Visible { get; set; }
         public bool Editable { get; set; }

@@ -1,5 +1,6 @@
 ﻿import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
 import { FormMetadata, initFormMetadata } from "./FormMetadata";
+import { EnumMetadata, initEnumMetadata } from "./EnumMetadata";
 export interface ProjectMetadata {
   idProjectMetadata:number;
   name:string;
@@ -7,8 +8,11 @@ export interface ProjectMetadata {
   path:string;
   dbConnectionString:string;
   unitOfWork:string;
+  webApiHttpsPort:number;
+  devServerPort:number;
   models:ModelMetadata[];
   forms:FormMetadata[];
+  enumTypes:EnumMetadata[];
 }
 
 export const initProjectMetadata = {
@@ -18,7 +22,10 @@ export const initProjectMetadata = {
   path: '',
   dbConnectionString: '',
   unitOfWork: '',
+  webApiHttpsPort: 0,
+  devServerPort: 0,
   models: [],
   forms: [],
+  enumTypes: [],
 
 }

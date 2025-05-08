@@ -99,6 +99,11 @@ const toUpperFirstChar = str => {
       </div>
 
       <div className="form-check m-3">
+        <label className="form-check-label" htmlFor="flexCheckIsEnum">Свойство перечисления</label>
+        <input name="isEnum" className="form-check-input" type="checkbox" checked={editedItem.isEnum} id="flexCheckIsEnum" onChange={ handleCheckBoxChange } />
+      </div>
+
+      <div className="form-check m-3">
         <label className="form-check-label" htmlFor="flexCheckIsVirtual">Свойство внешней связи</label>
         <input name="isVirtual" className="form-check-input" type="checkbox" checked={editedItem.isVirtual} id="flexCheckIsVirtual" onChange={ handleCheckBoxChange } />
       </div>

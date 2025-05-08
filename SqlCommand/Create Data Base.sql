@@ -2,6 +2,8 @@
 DROP TABLE IF EXISTS [PropMetadata]
 DROP TABLE IF EXISTS [FormMetadata]
 DROP TABLE IF EXISTS [ModelMetadata]
+DROP TABLE IF EXISTS [EnumValueMetadata]
+DROP TABLE IF EXISTS [EnumMetadata]
 DROP TABLE IF EXISTS [ProjectMetadata]
 
 CREATE TABLE ProjectMetadata 
@@ -11,7 +13,25 @@ CREATE TABLE ProjectMetadata
   [Description] VARCHAR(MAX)   NOT NULL,
   [Path] VARCHAR(MAX)   NOT NULL,
   [DbConnectionString] VARCHAR(MAX)   NOT NULL,
-  [UnitOfWork] VARCHAR(MAX)   NOT NULL
+  [UnitOfWork] VARCHAR(MAX)   NOT NULL,
+  [WebApiHttpsPort] INT   NOT NULL,
+  [DevServerPort] INT   NOT NULL
+)
+
+CREATE TABLE EnumMetadata 
+(
+  [IdEnumMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
+  [Name] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NOT NULL,
+  [IdProjectMetadata] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL
+)
+
+CREATE TABLE EnumValueMetadata 
+(
+  [IdEnumValueMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
+  [Name] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NOT NULL,
+  [IdEnumMetadata] INT  REFERENCES EnumMetadata (IdEnumMetadata) NOT NULL
 )
 
 CREATE TABLE ModelMetadata 
@@ -44,6 +64,7 @@ CREATE TABLE PropMetadata
   [Caption] VARCHAR(MAX)   NOT NULL,
   [IdModelMetadata] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
   [IsPrimaryKey] BIT   NOT NULL,
+  [IsEnum] BIT   NOT NULL,
   [IsVirtual] BIT   NOT NULL,
   [Visible] BIT   NOT NULL,
   [Editable] BIT   NOT NULL,

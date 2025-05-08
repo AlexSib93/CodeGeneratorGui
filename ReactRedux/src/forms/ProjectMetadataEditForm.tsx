@@ -8,7 +8,8 @@ import {ModelMetadata,initModelMetadata} from '../models/ModelMetadata';
 import ModelMetadataEditForm from './ModelMetadataEditForm';
 import {FormMetadata,initFormMetadata} from '../models/FormMetadata';
 import FormMetadataEditForm from './FormMetadataEditForm';
-import GeneratorService from '../services/GeneratorService';
+import {EnumMetadata,initEnumMetadata} from '../models/EnumMetadata';
+import EnumMetadataEditForm from './EnumMetadataEditForm';
 
 
 
@@ -90,6 +91,33 @@ import GeneratorService from '../services/GeneratorService';
         setEditedForms(null);
     };
 
+  const [editedEnumTypes, setEditedEnumTypes] = useState<EnumMetadata>(null);
+
+  const addEnumTypes = () => {
+    let newItem: EnumMetadata = { ...initEnumMetadata, idProjectMetadata: editedItem.idProjectMetadata };
+    setEditedEnumTypes(newItem);
+  }
+
+  const submitEditFormEnumTypes = (model: EnumMetadata) => {
+    setEditedEnumTypes(null);
+    if (model && model.idEnumMetadata > 0) {
+              setEditedItem({ ...editedItem, enumTypes: editedItem.enumTypes.map(i=> (i.idEnumMetadata===model.idEnumMetadata)? model:i)});
+            } else {
+              setEditedItem({ ...editedItem, enumTypes: [...editedItem.enumTypes, model] });
+            }
+  }
+  
+  const handleDeleteEnumTypes = (model: EnumMetadata) => {
+    setEditedItem((current) => { 
+        var newItems = editedItem.enumTypes.filter(i => i !== model);
+        return { ...current, enumTypes: newItems } 
+    });
+  };
+
+    const handleCancelEditEnumTypes = () => {
+        setEditedEnumTypes(null);
+    };
+
 
    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
      const { name, value } = e.target;
@@ -148,7 +176,7 @@ const toUpperFirstChar = str => {
 
    return (
     <div>
-         {!editedModels && !editedForms && <form onSubmit={handleSubmit} className="form">
+         {!editedModels && !editedForms && !editedEnumTypes && <form onSubmit={handleSubmit} className="form">
            <h1 className="h3 mb-3 fw-normal">Проект</h1>
                
       <div className="m-3">                
@@ -175,6 +203,16 @@ const toUpperFirstChar = str => {
         <label className="form-label" htmlFor="floatingInputUnitOfWork">Объект работы с БД (MockUnit или EfUnit )</label>
         <input name="unitOfWork" className="form-control" id="floatingInputUnitOfWork" placeholder="Объект работы с БД (MockUnit или EfUnit )" autoComplete="off" value={editedItem.unitOfWork} onChange={ handleInputChange } />
       </div>
+
+      <div className="m-3">            
+        <label className="form-label" htmlFor="floatingInputWebApiHttpsPort">Порт для запуска WebApi</label>
+        <input name="webApiHttpsPort" type="number" className="form-control" id="floatingInputWebApiHttpsPort" placeholder="Порт для запуска WebApi" autoComplete="off" value={editedItem.webApiHttpsPort} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">            
+        <label className="form-label" htmlFor="floatingInputDevServerPort">Порт для запуска WebPackDevServer</label>
+        <input name="devServerPort" type="number" className="form-control" id="floatingInputDevServerPort" placeholder="Порт для запуска WebPackDevServer" autoComplete="off" value={editedItem.devServerPort} onChange={ handleInputChange } />
+      </div>
       <div className="m-3 card">    
         <div className="card-body"> 
             <div className="card-title">
@@ -195,6 +233,16 @@ const toUpperFirstChar = str => {
             </div>
         </div>
       </div>
+      <div className="m-3 card">    
+        <div className="card-body"> 
+            <div className="card-title">
+                <h1 className="h4 fw-normal">Типы-перечисления</h1>
+            </div>
+            <div className="card-text">
+                <Grid  onAdd={addEnumTypes} onEdit={setEditedEnumTypes} onDelete={handleDeleteEnumTypes} items={editedItem.enumTypes} props={[{Name:'idEnumMetadata', Caption: 'ID типа-перечисления', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
+            </div>
+        </div>
+      </div>
                <div className='row'>
                    <button className="col btn btn-danger" type='button' onClick={props.onCancel} >Отмена</button>
                    <button type='button' onClick={() => autoGenFormMetadata()} className="col btn btn-light">Сгенерировать метаданные форм</button>
@@ -206,6 +254,7 @@ const toUpperFirstChar = str => {
 
         { editedModels && <ModelMetadataEditForm model={editedModels} onSave={submitEditFormModels} onCancel={handleCancelEditModels} />}
         { editedForms && <FormMetadataEditForm model={editedForms} onSave={submitEditFormForms} onCancel={handleCancelEditForms} />}
+        { editedEnumTypes && <EnumMetadataEditForm model={editedEnumTypes} onSave={submitEditFormEnumTypes} onCancel={handleCancelEditEnumTypes} />}
     </div>
    );
  };

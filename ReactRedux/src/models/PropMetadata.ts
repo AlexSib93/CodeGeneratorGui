@@ -7,6 +7,7 @@ export interface PropMetadata {
   idModelMetadata:number;
   modelMetadata?:ModelMetadata;
   isPrimaryKey:boolean;
+  isEnum:boolean;
   isVirtual:boolean;
   visible:boolean;
   editable:boolean;
@@ -24,6 +25,7 @@ export const initPropMetadata = {
   caption: '',
   idModelMetadata: 0,
   isPrimaryKey: false,
+  isEnum: false,
   isVirtual: false,
   visible: false,
   editable: false,

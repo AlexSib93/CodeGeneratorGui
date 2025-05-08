@@ -36,6 +36,18 @@ namespace DataAccessLayer.Data
             get { return _repComponentMetadata ?? (_repComponentMetadata = new MockRepository<ComponentMetadata>()); }
         }
 
+        private IRepository<EnumMetadata> _repEnumMetadata;
+        public IRepository<EnumMetadata> RepEnumMetadata
+        {
+            get { return _repEnumMetadata ?? (_repEnumMetadata = new MockRepository<EnumMetadata>()); }
+        }
+
+        private IRepository<EnumValueMetadata> _repEnumValueMetadata;
+        public IRepository<EnumValueMetadata> RepEnumValueMetadata
+        {
+            get { return _repEnumValueMetadata ?? (_repEnumValueMetadata = new MockRepository<EnumValueMetadata>()); }
+        }
+
         private IRepository<User> _repUser;
         public IRepository<User> RepUser
         {

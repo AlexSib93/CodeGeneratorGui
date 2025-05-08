@@ -16,6 +16,10 @@ namespace DataAccessLayer
 
         IRepository<ComponentMetadata> RepComponentMetadata { get;}
 
+        IRepository<EnumMetadata> RepEnumMetadata { get;}
+
+        IRepository<EnumValueMetadata> RepEnumValueMetadata { get;}
+
         IRepository<User> RepUser { get;}
 
 

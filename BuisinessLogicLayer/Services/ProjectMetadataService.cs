@@ -12,11 +12,13 @@ namespace BuisinessLogicLayer.Services
     {
          public IModelMetadataService ModelMetadataService { get; set; }
          public IFormMetadataService FormMetadataService { get; set; }
+         public IEnumMetadataService EnumMetadataService { get; set; }
 
-        public ProjectMetadataService(IUnitOfWork unit, IModelMetadataService modelMetadataService, IFormMetadataService formMetadataService) : base(unit)
+        public ProjectMetadataService(IUnitOfWork unit, IModelMetadataService modelMetadataService, IFormMetadataService formMetadataService, IEnumMetadataService enumMetadataService) : base(unit)
         {
           ModelMetadataService = modelMetadataService;
           FormMetadataService = formMetadataService;
+          EnumMetadataService = enumMetadataService;
 
         }
 
@@ -31,6 +33,7 @@ namespace BuisinessLogicLayer.Services
         {
               ModelMetadataService.Update( projectMetadata.IdProjectMetadata, projectMetadata.Models);
               FormMetadataService.Update( projectMetadata.IdProjectMetadata, projectMetadata.Forms);
+              EnumMetadataService.Update( projectMetadata.IdProjectMetadata, projectMetadata.EnumTypes);
             int res = Unit.RepProjectMetadata.Update(projectMetadata);
 
             return projectMetadata;
@@ -41,6 +44,7 @@ namespace BuisinessLogicLayer.Services
             foreach(ProjectMetadata item in projectMetadatas)
             {              ModelMetadataService.Update( item.Models);
               FormMetadataService.Update( item.Forms);
+              EnumMetadataService.Update( item.EnumTypes);
 
             }
 
@@ -58,7 +62,7 @@ namespace BuisinessLogicLayer.Services
 
         public ProjectMetadata Get(Expression<Func<ProjectMetadata, bool>> where = null)
         {
-            ProjectMetadata t = Unit.RepProjectMetadata.Get(where, "Models", "Forms", "Forms.EditForm", "Forms.Model");
+            ProjectMetadata t = Unit.RepProjectMetadata.Get(where, "Models", "Forms", "Forms.EditForm", "Forms.Model", "EnumTypes");
 
             return t;
         }

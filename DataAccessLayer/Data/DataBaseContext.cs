@@ -24,6 +24,12 @@ namespace DataAccessLayer.Data
         public virtual DbSet<ComponentMetadata> ComponentMetadata { get; set; } = null!;
 
 
+        public virtual DbSet<EnumMetadata> EnumMetadata { get; set; } = null!;
+
+
+        public virtual DbSet<EnumValueMetadata> EnumValueMetadata { get; set; } = null!;
+
+
 
         public DataBaseContext(string connectionString)
            : base(new DbContextOptionsBuilder<DataBaseContext>().UseSqlServer(connectionString).Options)

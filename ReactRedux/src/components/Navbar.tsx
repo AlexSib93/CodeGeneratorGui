@@ -50,6 +50,14 @@ const Header = () => {
                             <li>
                                 <NavLink className={linkClasses} aria-current="page" to="ComponentMetadatas">Компонент формы</NavLink>
                             </li>
+                            
+                            <li>
+                                <NavLink className={linkClasses} aria-current="page" to="EnumMetadatas">Тип-перечисление</NavLink>
+                            </li>
+                            
+                            <li>
+                                <NavLink className={linkClasses} aria-current="page" to="EnumValueMetadatas">Значение типа-перечисления</NavLink>
+                            </li>
                             {/* <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                                 <ul className="dropdown-menu" aria-labelledby="dropdown09">

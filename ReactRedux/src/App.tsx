@@ -13,6 +13,8 @@ import {ProjectMetadatas} from './forms/ProjectMetadatas';
 import {FormMetadatas} from './forms/FormMetadatas';
 import {PropMetadatas} from './forms/PropMetadatas';
 import {ComponentMetadatas} from './forms/ComponentMetadatas';
+import {EnumMetadatas} from './forms/EnumMetadatas';
+import {EnumValueMetadatas} from './forms/EnumValueMetadatas';
 
 
 
@@ -36,6 +38,8 @@ function App() {
 <Route path='/FormMetadatas' element={<FormMetadatas items={[]} autoFetch={true} />} /> 
 <Route path='/PropMetadatas' element={<PropMetadatas items={[]} autoFetch={true} />} /> 
 <Route path='/ComponentMetadatas' element={<ComponentMetadatas items={[]} autoFetch={true} />} /> 
+<Route path='/EnumMetadatas' element={<EnumMetadatas items={[]} autoFetch={true} />} /> 
+<Route path='/EnumValueMetadatas' element={<EnumValueMetadatas items={[]} autoFetch={true} />} /> 
             </Routes>
           </main>
         {/* </BrowserRouter> */}

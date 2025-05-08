@@ -51,6 +51,18 @@ namespace DataAccessLayer.Data
             get { return _repComponentMetadata ?? (_repComponentMetadata = new DataBaseRepository<ComponentMetadata>(_db)); }
         }
 
+        private IRepository<EnumMetadata> _repEnumMetadata;
+        public IRepository<EnumMetadata> RepEnumMetadata
+        {
+            get { return _repEnumMetadata ?? (_repEnumMetadata = new DataBaseRepository<EnumMetadata>(_db)); }
+        }
+
+        private IRepository<EnumValueMetadata> _repEnumValueMetadata;
+        public IRepository<EnumValueMetadata> RepEnumValueMetadata
+        {
+            get { return _repEnumValueMetadata ?? (_repEnumValueMetadata = new DataBaseRepository<EnumValueMetadata>(_db)); }
+        }
+
 
 
         public EfUnit(DataBaseContext db)

@@ -78,7 +78,9 @@ builder.Services
     .AddScoped<IProjectMetadataService, ProjectMetadataService>()
     .AddScoped<IFormMetadataService, FormMetadataService>()
     .AddScoped<IPropMetadataService, PropMetadataService>()
-    .AddScoped<IComponentMetadataService, ComponentMetadataService>();
+    .AddScoped<IComponentMetadataService, ComponentMetadataService>()
+    .AddScoped<IEnumMetadataService, EnumMetadataService>()
+    .AddScoped<IEnumValueMetadataService, EnumValueMetadataService>();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
