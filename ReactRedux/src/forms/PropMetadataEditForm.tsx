@@ -118,11 +118,6 @@ const toUpperFirstChar = str => {
         <input name="jsonIgnore" className="form-check-input" type="checkbox" checked={editedItem.jsonIgnore} id="flexCheckJsonIgnore" onChange={ handleCheckBoxChange } />
       </div>
 
-      <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputPropType">Тип свойства</label>
-        <input name="propType" className="form-control" id="floatingInputPropType" placeholder="Тип свойства" autoComplete="off" value={editedItem.propType} onChange={ handleInputChange } />
-      </div>
-
       <div className="m-3">   
         <label className="form-label" htmlFor="propType">Тип свойства</label>
         <select name="propType" className="form-control selectpicker" data-live-search="true" id="propType"  value={editedItem.propType}  onChange={handleEnumSelectChange}>

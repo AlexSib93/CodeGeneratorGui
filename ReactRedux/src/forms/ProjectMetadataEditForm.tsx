@@ -197,11 +197,6 @@ const toUpperFirstChar = str => {
         <input name="dbConnectionString" className="form-control" id="floatingInputDbConnectionString" placeholder="Строка подключения к БД" autoComplete="off" value={editedItem.dbConnectionString} onChange={ handleInputChange } />
       </div>
 
-      <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputUnitOfWork">Объект работы с БД (MockUnit или EfUnit )</label>
-        <input name="unitOfWork" className="form-control" id="floatingInputUnitOfWork" placeholder="Объект работы с БД (MockUnit или EfUnit )" autoComplete="off" value={editedItem.unitOfWork} onChange={ handleInputChange } />
-      </div>
-
       <div className="m-3">   
         <label className="form-label" htmlFor="unitOfWork">Объект работы с БД (MockUnit или EfUnit )</label>
         <select name="unitOfWork" className="form-control selectpicker" data-live-search="true" id="unitOfWork"  value={editedItem.unitOfWork}  onChange={handleEnumSelectChange}>

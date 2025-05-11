@@ -133,11 +133,6 @@ const toUpperFirstChar = str => {
         <input name="description" className="form-control" id="floatingInputDescription" placeholder="Описание" autoComplete="off" value={editedItem.description} onChange={ handleInputChange } />
       </div>
 
-      <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputType">Тип компонента</label>
-        <input name="type" className="form-control" id="floatingInputType" placeholder="Тип компонента" autoComplete="off" value={editedItem.type} onChange={ handleInputChange } />
-      </div>
-
       <div className="m-3">   
         <label className="form-label" htmlFor="type">Тип компонента</label>
         <select name="type" className="form-control selectpicker" data-live-search="true" id="type"  value={editedItem.type}  onChange={handleEnumSelectChange}>
