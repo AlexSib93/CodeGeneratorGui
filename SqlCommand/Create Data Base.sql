@@ -60,7 +60,7 @@ CREATE TABLE PropMetadata
 (
   [IdPropMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [Type] VARCHAR(MAX)   NOT NULL,
+  [Type] VARCHAR(MAX)   NULL,
   [Caption] VARCHAR(MAX)   NULL,
   [IdModelMetadata] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
   [IsPrimaryKey] BIT   NOT NULL,
