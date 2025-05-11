@@ -10,6 +10,7 @@ import {FormMetadata,initFormMetadata} from '../models/FormMetadata';
 import FormMetadataEditForm from './FormMetadataEditForm';
 import {EnumMetadata,initEnumMetadata} from '../models/EnumMetadata';
 import EnumMetadataEditForm from './EnumMetadataEditForm';
+import GeneratorService from '../services/GeneratorService';
 
 
 
