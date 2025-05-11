@@ -1,4 +1,5 @@
-﻿import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
+﻿import { UnitOfWorkEnum, initUnitOfWorkEnum } from "../enums/UnitOfWorkEnum";
+import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
 import { FormMetadata, initFormMetadata } from "./FormMetadata";
 import { EnumMetadata, initEnumMetadata } from "./EnumMetadata";
 export interface ProjectMetadata {
@@ -7,7 +8,7 @@ export interface ProjectMetadata {
   description?:string;
   path?:string;
   dbConnectionString?:string;
-  unitOfWork?:string;
+  unitOfWork:UnitOfWorkEnum;
   webApiHttpsPort?:number;
   devServerPort?:number;
   models:ModelMetadata[];
@@ -18,6 +19,7 @@ export interface ProjectMetadata {
 export const initProjectMetadata = {
   idProjectMetadata: 0,
   name: '',
+  unitOfWork: initUnitOfWorkEnum,
   models: [],
   forms: [],
   enumTypes: [],

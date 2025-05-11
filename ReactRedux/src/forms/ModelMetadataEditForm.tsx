@@ -8,7 +8,7 @@ import {PropMetadata,initPropMetadata} from '../models/PropMetadata';
 import PropMetadataEditForm from './PropMetadataEditForm';
 
 
-
+import { PropTypeEnum, propTypeEnumToString, propTypeEnumArray } from "../enums/PropTypeEnum";
 
 
  interface ModelMetadataEditFormProps {
@@ -131,7 +131,7 @@ const toUpperFirstChar = str => {
                 <h1 className="h4 fw-normal">Свойства</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'isEnum', Caption: 'Свойство перечисления', Visible: true, Type: 'bool'}, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Перечисление', Visible: false, Type: 'bool'}, {Name:'isMasterProp', Caption: 'Ссылка на мастера', Visible: false, Type: 'bool'}, {Name:'isDetailsProp', Caption: 'Детейл', Visible: false, Type: 'bool'}, {Name:'isDictValueProp', Caption: 'Значение из справочника', Visible: false, Type: 'bool'}]} />
+                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'expression', Caption: 'Выражение для вычислимого свойства', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'propType', Caption: 'Тип свойства', Visible: true, Type: 'Set', ToString: propTypeEnumToString, Values: propTypeEnumArray }, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'isNullable', Caption: 'Возможны пустые значения', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Коллекция', Visible: true, Type: 'bool'}, {Name:'typeOfEnumerable', Caption: 'Тип экземпляра коллекции', Visible: true, Type: 'string'}, {Name:'typeOfNullable', Caption: 'Тип экземпляра коллекции', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>

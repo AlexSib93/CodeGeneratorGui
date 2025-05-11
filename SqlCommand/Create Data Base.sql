@@ -13,7 +13,7 @@ CREATE TABLE ProjectMetadata
   [Description] VARCHAR(MAX)   NULL,
   [Path] VARCHAR(MAX)   NULL,
   [DbConnectionString] VARCHAR(MAX)   NULL,
-  [UnitOfWork] VARCHAR(MAX)   NULL,
+  [UnitOfWork] INT   NOT NULL,
   [WebApiHttpsPort] INT   NULL,
   [DevServerPort] INT   NULL
 )
@@ -62,17 +62,18 @@ CREATE TABLE PropMetadata
   [Name] VARCHAR(MAX)   NOT NULL,
   [Type] VARCHAR(MAX)   NULL,
   [Caption] VARCHAR(MAX)   NULL,
+  [Expression] VARCHAR(MAX)   NULL,
   [IdModelMetadata] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
   [IsPrimaryKey] BIT   NOT NULL,
-  [IsEnum] BIT   NOT NULL,
-  [IsVirtual] BIT   NOT NULL,
   [Visible] BIT   NOT NULL,
   [Editable] BIT   NOT NULL,
   [JsonIgnore] BIT   NOT NULL,
+  [PropType] INT   NOT NULL,
+  [IsVirtual] BIT   NOT NULL,
+  [IsNullable] BIT   NOT NULL,
   [IsEnumerable] BIT   NOT NULL,
-  [IsMasterProp] BIT   NOT NULL,
-  [IsDetailsProp] BIT   NOT NULL,
-  [IsDictValueProp] BIT   NOT NULL
+  [TypeOfEnumerable] VARCHAR(MAX)   NOT NULL,
+  [TypeOfNullable] VARCHAR(MAX)   NOT NULL
 )
 
 CREATE TABLE ComponentMetadata 
@@ -81,7 +82,8 @@ CREATE TABLE ComponentMetadata
   [Name] VARCHAR(MAX)   NULL,
   [Caption] VARCHAR(MAX)   NULL,
   [Description] VARCHAR(MAX)   NULL,
-  [Type] VARCHAR(MAX)   NOT NULL,
+  [Type] INT   NOT NULL,
+  [TypeString] VARCHAR(MAX)   NOT NULL,
   [IdModelPropMetadata] INT  REFERENCES PropMetadata (IdPropMetadata) NOT NULL,
   [ModelProp] BIT   NOT NULL,
   [IdFormMetadata] INT  REFERENCES FormMetadata (IdFormMetadata) NOT NULL

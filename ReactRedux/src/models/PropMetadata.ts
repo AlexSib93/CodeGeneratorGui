@@ -1,21 +1,23 @@
 ﻿import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
+import { PropTypeEnum, initPropTypeEnum } from "../enums/PropTypeEnum";
 export interface PropMetadata {
   idPropMetadata:number;
   name:string;
   type?:string;
   caption?:string;
+  expression?:string;
   idModelMetadata:number;
   modelMetadata?:ModelMetadata;
   isPrimaryKey:boolean;
-  isEnum:boolean;
-  isVirtual:boolean;
   visible:boolean;
   editable:boolean;
   jsonIgnore:boolean;
+  propType:PropTypeEnum;
+  isVirtual:boolean;
+  isNullable:boolean;
   isEnumerable:boolean;
-  isMasterProp:boolean;
-  isDetailsProp:boolean;
-  isDictValueProp:boolean;
+  typeOfEnumerable:string;
+  typeOfNullable:string;
 }
 
 export const initPropMetadata = {
@@ -23,14 +25,14 @@ export const initPropMetadata = {
   name: '',
   idModelMetadata: 0,
   isPrimaryKey: false,
-  isEnum: false,
-  isVirtual: false,
   visible: false,
   editable: false,
   jsonIgnore: false,
+  propType: initPropTypeEnum,
+  isVirtual: false,
+  isNullable: false,
   isEnumerable: false,
-  isMasterProp: false,
-  isDetailsProp: false,
-  isDictValueProp: false,
+  typeOfEnumerable: '',
+  typeOfNullable: '',
 
 }

@@ -19,7 +19,8 @@ namespace DataAccessLayer.Dto
         public string? Name { get; set; }
         public string? Caption { get; set; }
         public string? Description { get; set; }
-        public string Type { get; set; }
+        public ComponentTypeEnum Type { get; set; }
+        public string TypeString { get; set; }
 
         public int? IdModelPropMetadata { get; set; }
 

@@ -22,7 +22,7 @@ namespace DataAccessLayer.Dto
         public string? Description { get; set; }
         public string? Path { get; set; }
         public string? DbConnectionString { get; set; }
-        public string? UnitOfWork { get; set; }
+        public UnitOfWorkEnum UnitOfWork { get; set; }
         public int? WebApiHttpsPort { get; set; }
         public int? DevServerPort { get; set; }
 

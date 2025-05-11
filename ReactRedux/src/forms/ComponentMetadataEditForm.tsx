@@ -8,7 +8,8 @@ import {PropMetadata,initPropMetadata} from '../models/PropMetadata';
 import PropMetadataEditForm from './PropMetadataEditForm';
 
 import PropMetadataService from "../services/PropMetadataService";
-
+import { ComponentTypeEnum, componentTypeEnumToString, componentTypeEnumArray } from "../enums/ComponentTypeEnum";
+import { PropTypeEnum, propTypeEnumToString, propTypeEnumArray } from "../enums/PropTypeEnum";
 
 
  interface ComponentMetadataEditFormProps {
@@ -39,7 +40,7 @@ import PropMetadataService from "../services/PropMetadataService";
     });
   }, [])
 
-  const selectLookUpItemsPropMetadata = useMemo(()=>lookUpItemsPropMetadata ? lookUpItemsPropMetadata.map(i => <option  key={i.idPropMetadata}  value={i.idPropMetadata}>{i.name + ' ' + i.type + ' ' + i.caption + ' ' + i.isPrimaryKey + ' ' + i.isEnum + ' ' + i.isVirtual + ' ' + i.visible + ' ' + i.editable + ' ' + i.jsonIgnore + ' ' + i.isEnumerable + ' ' + i.isMasterProp + ' ' + i.isDetailsProp + ' ' + i.isDictValueProp}</option>):null, [lookUpItemsPropMetadata]);
+  const selectLookUpItemsPropMetadata = useMemo(()=>lookUpItemsPropMetadata ? lookUpItemsPropMetadata.map(i => <option  key={i.idPropMetadata}  value={i.idPropMetadata}>{i.name + ' ' + i.type + ' ' + i.caption + ' ' + i.expression + ' ' + i.isPrimaryKey + ' ' + i.visible + ' ' + i.editable + ' ' + i.jsonIgnore + ' ' + i.propType + ' ' + i.isVirtual + ' ' + i.isNullable + ' ' + i.isEnumerable + ' ' + i.typeOfEnumerable + ' ' + i.typeOfNullable}</option>):null, [lookUpItemsPropMetadata]);
 
 
 
@@ -47,7 +48,7 @@ import PropMetadataService from "../services/PropMetadataService";
   const [editedProps, setEditedProps] = useState<PropMetadata>(null);
 
   const addProps = () => {
-    let newItem: PropMetadata = { ...initPropMetadata, idComponentMetadata: editedItem.idComponentMetadata };
+    let newItem: PropMetadata = { ...initPropMetadata};
     setEditedProps(newItem);
   }
 
@@ -133,8 +134,31 @@ const toUpperFirstChar = str => {
       </div>
 
       <div className="m-3">                
-        <label className="form-label" htmlFor="floatingInputType">Тип данных C#</label>
-        <input name="type" className="form-control" id="floatingInputType" placeholder="Тип данных C#" autoComplete="off" value={editedItem.type} onChange={ handleInputChange } />
+        <label className="form-label" htmlFor="floatingInputType">Тип компонента</label>
+        <input name="type" className="form-control" id="floatingInputType" placeholder="Тип компонента" autoComplete="off" value={editedItem.type} onChange={ handleInputChange } />
+      </div>
+
+      <div className="m-3">   
+        <label className="form-label" htmlFor="type">Тип компонента</label>
+        <select name="type" className="form-control selectpicker" data-live-search="true" id="type"  value={editedItem.type}  onChange={handleEnumSelectChange}>
+                        
+         <option  key={ComponentTypeEnum.DetailTable} value={ComponentTypeEnum.DetailTable}> Таблица детейлов </option>,
+         <option  key={ComponentTypeEnum.Input} value={ComponentTypeEnum.Input}> Текстовое поле ввода </option>,
+         <option  key={ComponentTypeEnum.DateTime} value={ComponentTypeEnum.DateTime}> Поле выбора даты </option>,
+         <option  key={ComponentTypeEnum.NumericUpDown} value={ComponentTypeEnum.NumericUpDown}> Поле ввода числа </option>,
+         <option  key={ComponentTypeEnum.CancelButton} value={ComponentTypeEnum.CancelButton}> Кнопка отмены </option>,
+         <option  key={ComponentTypeEnum.SubmitButton} value={ComponentTypeEnum.SubmitButton}> Кнопка отправки формы </option>,
+         <option  key={ComponentTypeEnum.SaveButton} value={ComponentTypeEnum.SaveButton}> Кнопка сохранения </option>,
+         <option  key={ComponentTypeEnum.LookUp} value={ComponentTypeEnum.LookUp}> Выпадающий список для выбора из справочника </option>,
+         <option  key={ComponentTypeEnum.Grid} value={ComponentTypeEnum.Grid}> Таблица с фильтрами и сортировкой </option>,
+         <option  key={ComponentTypeEnum.EnumLookUp} value={ComponentTypeEnum.EnumLookUp}> Выпадающий список для выбора из типа-перечисления </option>
+        </select>
+      </div> 
+
+
+      <div className="m-3">                
+        <label className="form-label" htmlFor="floatingInputTypeString">Тип компонента</label>
+        <input name="typeString" className="form-control" id="floatingInputTypeString" placeholder="Тип компонента" autoComplete="off" value={editedItem.typeString} onChange={ handleInputChange } />
       </div>
 
       <div className="m-3">   
@@ -150,7 +174,7 @@ const toUpperFirstChar = str => {
                 <h1 className="h4 fw-normal">Используется для табличных компонентов для передачи списка свойств и их подписей</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'isEnum', Caption: 'Свойство перечисления', Visible: true, Type: 'bool'}, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Перечисление', Visible: false, Type: 'bool'}, {Name:'isMasterProp', Caption: 'Ссылка на мастера', Visible: false, Type: 'bool'}, {Name:'isDetailsProp', Caption: 'Детейл', Visible: false, Type: 'bool'}, {Name:'isDictValueProp', Caption: 'Значение из справочника', Visible: false, Type: 'bool'}]} />
+                <Grid  onAdd={addProps} onEdit={setEditedProps} onDelete={handleDeleteProps} items={editedItem.props} props={[{Name:'idPropMetadata', Caption: 'ID свойства', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'expression', Caption: 'Выражение для вычислимого свойства', Visible: true, Type: 'string'}, {Name:'isPrimaryKey', Caption: 'Первичный ключ', Visible: true, Type: 'bool'}, {Name:'visible', Caption: 'Отображать свойство в интерфейсе', Visible: true, Type: 'bool'}, {Name:'editable', Caption: 'Доступ к редактированию поля', Visible: true, Type: 'bool'}, {Name:'jsonIgnore', Caption: 'Не передавать на клиент', Visible: true, Type: 'bool'}, {Name:'propType', Caption: 'Тип свойства', Visible: true, Type: 'Set', ToString: propTypeEnumToString, Values: propTypeEnumArray }, {Name:'isVirtual', Caption: 'Свойство внешней связи', Visible: true, Type: 'bool'}, {Name:'isNullable', Caption: 'Возможны пустые значения', Visible: true, Type: 'bool'}, {Name:'isEnumerable', Caption: 'Коллекция', Visible: true, Type: 'bool'}, {Name:'typeOfEnumerable', Caption: 'Тип экземпляра коллекции', Visible: true, Type: 'string'}, {Name:'typeOfNullable', Caption: 'Тип экземпляра коллекции', Visible: true, Type: 'string'}]} />
             </div>
         </div>
       </div>

@@ -1,11 +1,13 @@
-﻿import { PropMetadata, initPropMetadata } from "./PropMetadata";
+﻿import { ComponentTypeEnum, initComponentTypeEnum } from "../enums/ComponentTypeEnum";
+import { PropMetadata, initPropMetadata } from "./PropMetadata";
 import { FormMetadata, initFormMetadata } from "./FormMetadata";
 export interface ComponentMetadata {
   idComponentMetadata:number;
   name?:string;
   caption?:string;
   description?:string;
-  type:string;
+  type:ComponentTypeEnum;
+  typeString:string;
   idModelPropMetadata:number;
   modelPropMetadata?:PropMetadata;
   props:PropMetadata[];
@@ -16,7 +18,8 @@ export interface ComponentMetadata {
 
 export const initComponentMetadata = {
   idComponentMetadata: 0,
-  type: '',
+  type: initComponentTypeEnum,
+  typeString: '',
   idModelPropMetadata: 0,
   props: [],
   modelProp: false,

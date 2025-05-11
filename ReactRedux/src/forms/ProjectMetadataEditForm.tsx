@@ -11,10 +11,7 @@ import FormMetadataEditForm from './FormMetadataEditForm';
 import {EnumMetadata,initEnumMetadata} from '../models/EnumMetadata';
 import EnumMetadataEditForm from './EnumMetadataEditForm';
 import GeneratorService from '../services/GeneratorService';
-
-
-
-
+import { UnitOfWorkEnum, unitOfWorkEnumToString, unitOfWorkEnumArray } from "../enums/UnitOfWorkEnum";
 
  interface ProjectMetadataEditFormProps {
    model: ProjectMetadata;
@@ -205,6 +202,15 @@ const toUpperFirstChar = str => {
         <input name="unitOfWork" className="form-control" id="floatingInputUnitOfWork" placeholder="Объект работы с БД (MockUnit или EfUnit )" autoComplete="off" value={editedItem.unitOfWork} onChange={ handleInputChange } />
       </div>
 
+      <div className="m-3">   
+        <label className="form-label" htmlFor="unitOfWork">Объект работы с БД (MockUnit или EfUnit )</label>
+        <select name="unitOfWork" className="form-control selectpicker" data-live-search="true" id="unitOfWork"  value={editedItem.unitOfWork}  onChange={handleEnumSelectChange}>
+                        
+         <option  key={UnitOfWorkEnum.MockUnit} value={UnitOfWorkEnum.MockUnit}> Хранилище в оперативной памяти Хоста </option>,
+         <option  key={UnitOfWorkEnum.EfUnit} value={UnitOfWorkEnum.EfUnit}> База данных с доступом через Entity FrameWork Core </option>
+        </select>
+      </div> 
+
       <div className="m-3">            
         <label className="form-label" htmlFor="floatingInputWebApiHttpsPort">Порт для запуска WebApi</label>
         <input name="webApiHttpsPort" type="number" className="form-control" id="floatingInputWebApiHttpsPort" placeholder="Порт для запуска WebApi" autoComplete="off" value={editedItem.webApiHttpsPort} onChange={ handleInputChange } />
@@ -243,7 +249,7 @@ const toUpperFirstChar = str => {
                 <Grid  onAdd={addEnumTypes} onEdit={setEditedEnumTypes} onDelete={handleDeleteEnumTypes} items={editedItem.enumTypes} props={[{Name:'idEnumMetadata', Caption: 'ID типа-перечисления', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}]} />
             </div>
         </div>
-      </div>
+               </div>
                <div className='row'>
                    <button className="col btn btn-danger" type='button' onClick={props.onCancel} >Отмена</button>
                    <button type='button' onClick={() => autoGenFormMetadata()} className="col btn btn-light">Сгенерировать метаданные форм</button>

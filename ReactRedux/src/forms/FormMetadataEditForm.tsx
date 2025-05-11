@@ -8,7 +8,7 @@ import {ComponentMetadata,initComponentMetadata} from '../models/ComponentMetada
 import ComponentMetadataEditForm from './ComponentMetadataEditForm';
 import {ModelMetadata,initModelMetadata} from '../models/ModelMetadata';
 import ModelMetadataService from "../services/ModelMetadataService";
-
+import { ComponentTypeEnum, componentTypeEnumToString, componentTypeEnumArray } from "../enums/ComponentTypeEnum";
 
 
  interface FormMetadataEditFormProps {
@@ -153,7 +153,7 @@ const toUpperFirstChar = str => {
                 <h1 className="h4 fw-normal">Компоненты формы</h1>
             </div>
             <div className="card-text">
-                <Grid  onAdd={addComponents} onEdit={setEditedComponents} onDelete={handleDeleteComponents} items={editedItem.components} props={[{Name:'idComponentMetadata', Caption: 'ID компонента формы', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип данных C#', Visible: true, Type: 'string'}, {Name:'modelProp', Caption: 'Компонент свойства модели', Visible: true, Type: 'bool'}]} />
+                <Grid  onAdd={addComponents} onEdit={setEditedComponents} onDelete={handleDeleteComponents} items={editedItem.components} props={[{Name:'idComponentMetadata', Caption: 'ID компонента формы', Visible: false, Type: 'int'}, {Name:'name', Caption: 'Наименование', Visible: true, Type: 'string'}, {Name:'caption', Caption: 'Отображаемое имя', Visible: true, Type: 'string'}, {Name:'description', Caption: 'Описание', Visible: true, Type: 'string'}, {Name:'type', Caption: 'Тип компонента', Visible: true, Type: 'Set', ToString: componentTypeEnumToString, Values: componentTypeEnumArray }, {Name:'typeString', Caption: 'Тип компонента', Visible: true, Type: 'string'}, {Name:'modelProp', Caption: 'Компонент свойства модели', Visible: true, Type: 'bool'}]} />
             </div>
         </div>
       </div>
