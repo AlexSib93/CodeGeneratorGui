@@ -17,7 +17,7 @@ namespace DataAccessLayer.Dto
         [Key]
         public int IdEnumMetadata { get; set; }
         public string Name { get; set; }
-        public string Caption { get; set; }
+        public string? Caption { get; set; }
 
         
         public virtual ICollection<EnumValueMetadata>? Values { get; set; }

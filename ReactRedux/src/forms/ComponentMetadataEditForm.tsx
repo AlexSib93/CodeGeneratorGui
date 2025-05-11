@@ -7,7 +7,7 @@ import {Grid} from '../components/Grid';
 import {PropMetadata,initPropMetadata} from '../models/PropMetadata';
 import PropMetadataEditForm from './PropMetadataEditForm';
 
-
+import PropMetadataService from "../services/PropMetadataService";
 
 
 
@@ -29,6 +29,17 @@ import PropMetadataEditForm from './PropMetadataEditForm';
       });
     }
   }, [editedItem.idComponentMetadata])
+
+  
+  const [lookUpItemsPropMetadata, setLookUpItemsPropMetadata] = useState<PropMetadata[]>();
+  
+  useEffect(() => {
+    PropMetadataService.getall().then((item) => {
+        setLookUpItemsPropMetadata(item);
+    });
+  }, [])
+
+  const selectLookUpItemsPropMetadata = useMemo(()=>lookUpItemsPropMetadata ? lookUpItemsPropMetadata.map(i => <option  key={i.idPropMetadata}  value={i.idPropMetadata}>{i.name + ' ' + i.type + ' ' + i.caption + ' ' + i.isPrimaryKey + ' ' + i.isEnum + ' ' + i.isVirtual + ' ' + i.visible + ' ' + i.editable + ' ' + i.jsonIgnore + ' ' + i.isEnumerable + ' ' + i.isMasterProp + ' ' + i.isDetailsProp + ' ' + i.isDictValueProp}</option>):null, [lookUpItemsPropMetadata]);
 
 
 
@@ -125,6 +136,14 @@ const toUpperFirstChar = str => {
         <label className="form-label" htmlFor="floatingInputType">Тип данных C#</label>
         <input name="type" className="form-control" id="floatingInputType" placeholder="Тип данных C#" autoComplete="off" value={editedItem.type} onChange={ handleInputChange } />
       </div>
+
+      <div className="m-3">   
+        <label className="form-label" htmlFor="modelPropMetadata">Свойство Модели для которого используется компонент</label>
+        <select name="modelPropMetadata" className="form-control selectpicker" data-live-search="true" id="modelPropMetadata"  value={editedItem.idModelPropMetadata}  onChange={(e) =>  handleSelectChange(e, (id:number) => lookUpItemsPropMetadata.find(p => p.idPropMetadata === id))}>
+            {selectLookUpItemsPropMetadata}
+        </select>
+      </div> 
+
       <div className="m-3 card">    
         <div className="card-body"> 
             <div className="card-title">

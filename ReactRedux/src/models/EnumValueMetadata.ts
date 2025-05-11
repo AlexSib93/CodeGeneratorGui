@@ -2,7 +2,7 @@
 export interface EnumValueMetadata {
   idEnumValueMetadata:number;
   name:string;
-  caption:string;
+  caption?:string;
   idEnumMetadata:number;
   enumMetadata?:EnumMetadata;
 }
@@ -10,7 +10,6 @@ export interface EnumValueMetadata {
 export const initEnumValueMetadata = {
   idEnumValueMetadata: 0,
   name: '',
-  caption: '',
   idEnumMetadata: 0,
 
 }

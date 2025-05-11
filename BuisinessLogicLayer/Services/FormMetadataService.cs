@@ -87,7 +87,7 @@ namespace BuisinessLogicLayer.Services
 
         public FormMetadata Get(Expression<Func<FormMetadata, bool>> where = null)
         {
-            FormMetadata t = Unit.RepFormMetadata.Get(where, "Components", "ProjectMetadata", "EditForm", "Model");
+            FormMetadata t = Unit.RepFormMetadata.Get(where, "Components", "Components.ModelPropMetadata", "ProjectMetadata", "EditForm", "Model");
 
             return t;
         }

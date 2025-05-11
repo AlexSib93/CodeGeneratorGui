@@ -20,6 +20,7 @@ namespace BuisinessLogicLayer.Services
 
         public ComponentMetadata Add(ComponentMetadata componentMetadata)
         {
+             componentMetadata.ModelPropMetadata = null;
             Unit.RepComponentMetadata.Add(componentMetadata);
 
             return componentMetadata;
@@ -28,6 +29,7 @@ namespace BuisinessLogicLayer.Services
         public ComponentMetadata Update(ComponentMetadata componentMetadata)
         {
               PropMetadataService.Update( componentMetadata.IdComponentMetadata, componentMetadata.Props);
+             componentMetadata.ModelPropMetadata = null;
             int res = Unit.RepComponentMetadata.Update(componentMetadata);
 
             return componentMetadata;
@@ -38,6 +40,7 @@ namespace BuisinessLogicLayer.Services
             foreach(ComponentMetadata item in componentMetadatas)
             {              PropMetadataService.Update( item.Props);
 
+             item.ModelPropMetadata = null;
             }
 
             int res = Unit.RepComponentMetadata.Update(componentMetadatas);
@@ -47,7 +50,7 @@ namespace BuisinessLogicLayer.Services
 
         public IEnumerable<ComponentMetadata> Update(int idMaster, IEnumerable<ComponentMetadata> componentMetadatas)
         {
-            IEnumerable<int> existedIds = Unit.RepComponentMetadata.GetIds(i => i.IdModelPropMetadata == idMaster, i => i.IdComponentMetadata);
+            IEnumerable<int> existedIds = Unit.RepComponentMetadata.GetIds(i => i.IdFormMetadata == idMaster, i => i.IdComponentMetadata);
             
             foreach (ComponentMetadata item in componentMetadatas)
             {
@@ -88,14 +91,14 @@ namespace BuisinessLogicLayer.Services
 
         public IEnumerable<ComponentMetadata> GetAll(Expression<Func<ComponentMetadata, bool>> where = null)
         {
-            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll(where,"ModelPropMetadata", "FormMetadata");
+            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll(where,"FormMetadata");
 
             return componentMetadatas;
         }
 
         public IEnumerable<ComponentMetadata> GetByMaster(int idMaster)
         {
-            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll( x => x.IdModelPropMetadata == idMaster, "ModelPropMetadata", "FormMetadata");
+            IEnumerable<ComponentMetadata> componentMetadatas = Unit.RepComponentMetadata.GetAll( x => x.IdFormMetadata == idMaster, "FormMetadata");
 
             return componentMetadatas;
         }

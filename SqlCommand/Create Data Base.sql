@@ -10,19 +10,19 @@ CREATE TABLE ProjectMetadata
 (
   [IdProjectMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [Description] VARCHAR(MAX)   NOT NULL,
-  [Path] VARCHAR(MAX)   NOT NULL,
-  [DbConnectionString] VARCHAR(MAX)   NOT NULL,
-  [UnitOfWork] VARCHAR(MAX)   NOT NULL,
-  [WebApiHttpsPort] INT   NOT NULL,
-  [DevServerPort] INT   NOT NULL
+  [Description] VARCHAR(MAX)   NULL,
+  [Path] VARCHAR(MAX)   NULL,
+  [DbConnectionString] VARCHAR(MAX)   NULL,
+  [UnitOfWork] VARCHAR(MAX)   NULL,
+  [WebApiHttpsPort] INT   NULL,
+  [DevServerPort] INT   NULL
 )
 
 CREATE TABLE EnumMetadata 
 (
   [IdEnumMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NULL,
   [IdProjectMetadata] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL
 )
 
@@ -30,7 +30,7 @@ CREATE TABLE EnumValueMetadata
 (
   [IdEnumValueMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NULL,
   [IdEnumMetadata] INT  REFERENCES EnumMetadata (IdEnumMetadata) NOT NULL
 )
 
@@ -38,9 +38,9 @@ CREATE TABLE ModelMetadata
 (
   [IdModelMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [InitData] VARCHAR(MAX)   NOT NULL,
-  [NameSpace] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
+  [InitData] VARCHAR(MAX)   NULL,
+  [NameSpace] VARCHAR(MAX)   NULL,
+  [Caption] VARCHAR(MAX)   NULL,
   [IdProjectMetadata] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL
 )
 
@@ -48,8 +48,8 @@ CREATE TABLE FormMetadata
 (
   [IdFormMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
-  [Description] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NULL,
+  [Description] VARCHAR(MAX)   NULL,
   [AddToNavBar] BIT   NOT NULL,
   [IdProjectMetadata] INT  REFERENCES ProjectMetadata (IdProjectMetadata) NOT NULL,
   [IdEditForm] INT  REFERENCES FormMetadata (IdFormMetadata) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE PropMetadata
   [IdPropMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
   [Name] VARCHAR(MAX)   NOT NULL,
   [Type] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
+  [Caption] VARCHAR(MAX)   NULL,
   [IdModelMetadata] INT  REFERENCES ModelMetadata (IdModelMetadata) NOT NULL,
   [IsPrimaryKey] BIT   NOT NULL,
   [IsEnum] BIT   NOT NULL,
@@ -78,9 +78,9 @@ CREATE TABLE PropMetadata
 CREATE TABLE ComponentMetadata 
 (
   [IdComponentMetadata] INT IDENTITY PRIMARY KEY  NOT NULL,
-  [Name] VARCHAR(MAX)   NOT NULL,
-  [Caption] VARCHAR(MAX)   NOT NULL,
-  [Description] VARCHAR(MAX)   NOT NULL,
+  [Name] VARCHAR(MAX)   NULL,
+  [Caption] VARCHAR(MAX)   NULL,
+  [Description] VARCHAR(MAX)   NULL,
   [Type] VARCHAR(MAX)   NOT NULL,
   [IdModelPropMetadata] INT  REFERENCES PropMetadata (IdPropMetadata) NOT NULL,
   [ModelProp] BIT   NOT NULL,

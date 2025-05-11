@@ -19,12 +19,12 @@ namespace DataAccessLayer.Dto
         [Key]
         public int IdProjectMetadata { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Path { get; set; }
-        public string DbConnectionString { get; set; }
-        public string UnitOfWork { get; set; }
-        public int WebApiHttpsPort { get; set; }
-        public int DevServerPort { get; set; }
+        public string? Description { get; set; }
+        public string? Path { get; set; }
+        public string? DbConnectionString { get; set; }
+        public string? UnitOfWork { get; set; }
+        public int? WebApiHttpsPort { get; set; }
+        public int? DevServerPort { get; set; }
 
         
         public virtual ICollection<ModelMetadata>? Models { get; set; }

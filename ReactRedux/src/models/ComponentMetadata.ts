@@ -2,9 +2,9 @@
 import { FormMetadata, initFormMetadata } from "./FormMetadata";
 export interface ComponentMetadata {
   idComponentMetadata:number;
-  name:string;
-  caption:string;
-  description:string;
+  name?:string;
+  caption?:string;
+  description?:string;
   type:string;
   idModelPropMetadata:number;
   modelPropMetadata?:PropMetadata;
@@ -16,9 +16,6 @@ export interface ComponentMetadata {
 
 export const initComponentMetadata = {
   idComponentMetadata: 0,
-  name: '',
-  caption: '',
-  description: '',
   type: '',
   idModelPropMetadata: 0,
   props: [],

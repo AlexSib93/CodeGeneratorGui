@@ -16,9 +16,9 @@ namespace DataAccessLayer.Dto
 
         [Key]
         public int IdComponentMetadata { get; set; }
-        public string Name { get; set; }
-        public string Caption { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Caption { get; set; }
+        public string? Description { get; set; }
         public string Type { get; set; }
 
         public int? IdModelPropMetadata { get; set; }

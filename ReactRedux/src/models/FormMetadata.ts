@@ -4,8 +4,8 @@ import { ModelMetadata, initModelMetadata } from "./ModelMetadata";
 export interface FormMetadata {
   idFormMetadata:number;
   name:string;
-  caption:string;
-  description:string;
+  caption?:string;
+  description?:string;
   addToNavBar:boolean;
   components:ComponentMetadata[];
   idProjectMetadata:number;
@@ -19,8 +19,6 @@ export interface FormMetadata {
 export const initFormMetadata = {
   idFormMetadata: 0,
   name: '',
-  caption: '',
-  description: '',
   addToNavBar: false,
   components: [],
   idProjectMetadata: 0,
